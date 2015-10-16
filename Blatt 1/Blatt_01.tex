@@ -10,6 +10,7 @@
 \section{Rechnen mit Resten}
 
 \subsection{}
+
     \begin{IEEEeqnarray*}{rCl}
         [a\cdot b]_n  & \stackrel{?}{=} & [a]_n \odot_n [b]_n \\
                       & =               & [(n\cdot q + r) \cdot (n\cdot p + s)]_n \\
@@ -21,6 +22,7 @@
     \end{IEEEeqnarray*}
 
 \subsection{}
+
     \begin{IEEEeqnarray*}{rl}
           & \left(\left(3126 \oplus_{11} 21783\right) \otimes_{11} 213894\right) \oplus_{11} 31942 \\
         = & \left(\left[24909\right]_{11} \otimes_{11} 213894\right) \oplus_{11} 31942 \\
@@ -32,6 +34,18 @@
     \end{IEEEeqnarray*}
 
 \subsection{}
+
+    \begin{IEEEeqnarray*}{rCltt}
+      \left[2131897^8\right]_3   & = & \left[\prod_{i=1}^8 2131897\right]_3\\
+                      & = & \prod_{i=1}^8 \left[2131897\right]_3   & \hspace{1cm} & Aufgabe 1.1 a) \\
+                      & = & \prod_{i=1}^8 1             & \hspace{1cm} &
+      \begin{IEEEeqnarraybox}[][c]{s}
+         Es sind $21\cdot x$, $3\cdot x$, $18\cdot x$ \\
+         und $9\cdot x$ durch $3$ teilbar, \\
+         sodass nur $7$ für Rest sorgen kann\\
+      \end{IEEEeqnarraybox} \\
+                     & = & 1
+    \end{IEEEeqnarray*}
 
 
 \section{Die Skytale}

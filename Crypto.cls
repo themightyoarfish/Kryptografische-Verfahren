@@ -37,7 +37,7 @@
   \usefont{\encodingdefault}{cmss}{m}{n}
   \hypersetup{
     pdftitle    = {Kryptografische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
-    pdfauthor   = {Andr\'eé Bajorat, Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Kristin Schmidt},
+    pdfauthor   = {André Bajorat, Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Kristin Schmidt},
     pdfsubject  = {Kryptografische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
     pdfcreator  = {LaTeX},
   }}

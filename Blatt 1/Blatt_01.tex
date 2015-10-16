@@ -1,4 +1,4 @@
-\documentclass{../krypto}
+\documentclass{../crypto}
 \sheet{1}
 \date{22. Oktober 2015}
 
@@ -7,37 +7,46 @@
 \maketitle
 
 
-\exercise{Rechnen mit Resten}
+\section{Rechnen mit Resten}
 
-\subexercise
+\subsection{}
+    \begin{IEEEeqnarray*}{rCl}
+        [a\cdot b]_n  & \stackrel{?}{=} & [a]_n \odot_n [b]_n \\
+                      & =               & [(n\cdot q + r) \cdot (n\cdot p + s)]_n \\
+                      & =               & [n^2pq + nqs + npr + rs]_n \\
+                      & =               & [n^2pq]_n \oplus_n [nqs]_n \oplus_n [npr]_n \oplus_n [rs]_n \\
+                      & =               & [rs]_n \\
+                      & =               & r \odot_n s \\
+                      & =               & [a]_n \odot_n [b]_n
+    \end{IEEEeqnarray*}
 
-\subexercise
-\begin{align*}
-  &\left(\left(3126 \oplus_11 21783\right) \otimes_11 213894\right) \oplus_11 31942 \\
-= &\left(\left[24909\right]_11 \otimes_11 213894\right) \oplus_11 31942 \\
-= &\left(5 \otimes_11 213894\right) \oplus_11 31942 \\
-= &\left[1069470\right]_11 \oplus_11 31942 \\
-= &6 \oplus_11 31942 \\
-= &\left[31948\right]_11 \\
-= &4
-\end{align*}
+\subsection{}
+    \begin{IEEEeqnarray*}{rl}
+          & \left(\left(3126 \oplus_{11} 21783\right) \otimes_{11} 213894\right) \oplus_{11} 31942 \\
+        = & \left(\left[24909\right]_{11} \otimes_{11} 213894\right) \oplus_{11} 31942 \\
+        = & \left(5 \otimes_{11} 213894\right) \oplus_{11} 31942 \\
+        = & \left[1069470\right]_{11} \oplus_{11} 31942 \\
+        = & 6 \oplus_{11} 31942 \\
+        = & \left[31948\right]_{11} \\
+        = & 4
+    \end{IEEEeqnarray*}
 
-\subexercise
-
-
-\exercise{Die Skytale}
-
-\subexercise
-
-\subexercise
-
-\subexercise
+\subsection{}
 
 
-\exercise{Cäsar\textsuperscript{\normalfont{2}}}
+\section{Die Skytale}
 
-\subexercise
+\subsection{}
 
-\subexercise
+\subsection{}
+
+\subsection{}
+
+
+\section{Cäsar\protect\raisebox{1ex}{\normalfont\tiny 2}}
+
+\subsection{}
+
+\subsection{}
 
 \end{document}

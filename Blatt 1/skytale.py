@@ -1,5 +1,5 @@
 cryptotext = 'PLTIRIERTFEIAIASSNOHKTSNRYEPSETIOVNANSE'
-k = 8; w = len(cryptotext)
+k = 5; w = len(cryptotext)
 cleartext = ''.join(
     [''.join(
             [cryptotext[i] for i in range(j, w, k)]) 

@@ -37,7 +37,7 @@
 
     \begin{IEEEeqnarray*}{rCltt}
       \left[2131897^8\right]_3   & = & \left[\prod_{i=1}^8 2131897\right]_3\\
-                      & = & \prod_{i=1}^8 \left[2131897\right]_3   & \hspace{1cm} & Aufgabe 1.1 a) \\
+                      & = & \prod_{i=1}^8 \left[2131897\right]_3   & \hspace{1cm} & Aufgabe 1.1.~(a) \\
                       & = & \prod_{i=1}^8 1             & \hspace{1cm} &
       \begin{IEEEeqnarraybox}[][c]{s}
          Es sind $21\cdot x$, $3\cdot x$, $18\cdot x$ \\
@@ -52,9 +52,44 @@
 
 \subsection{}
 
-\subsection{}
+% this is how I solved it
+%\lstinputlisting[language=Python]{skytale.py}
+Die Lösung ist: \texttt{PIESKYTALEISTEINTRANSPOSITIONSVERFAHREN}, also in etwa \texttt{Die Skytale ist ein Transpositionsverfahren}.
 
 \subsection{}
+
+Für die Berechnung der \texttt{pos} im Java Code muss noch der Parameter $k$ bekannt sein.
+
+Angenommen der Index in der \texttt{for}-loop soll eigentlich in \texttt{i} sein, ergibt sich die Formel:
+
+\begin{align*}
+\text{\texttt{pos}} = \left[i\right]_kw + \left\lfloor\frac{i}{k}\right\rfloor
+\end{align*}
+
+Die Intuition hier ist: Gehe Spalte für Spalte durch das Array, das $0$-te Element zuerst, danach das $w$-te, dann das $2w$-te und so weiter. Daraus folgt \texttt{pos} $= iw$. Damit nach Erreichen der letzten Zeile wieder die erste verwendet wird, muss $i$ alle $k$ Schritte zurückgesetzt werden (nur für die Berechnung, nicht als Loopindex), d.h. \texttt{pos} $= \left[i\right]_kw$. So würde jedoch immer nur die erste Spalte ausgelesen. Um zusätzlich die Spalte zu erhöhen, wenn das Ende erreicht ist, kann $\left\lfloor\frac{i}{k}\right\rfloor$ addiert werden, was den Spaltenindex für den Loopindex $i$ bei Spalten mit $k$ Elementen angibt. Es folgt \texttt{pos} $ = \left[i\right]_kw + \left\lfloor\frac{i}{k}\right\rfloor$.
+
+Vollständig implementiert folgt:
+\lstinputlisting[language=Java,firstline=9,lastline=12
+]{skytale.java}
+\texttt{PIESKYTALEISTEINTRANSPOSITIONSVERFAHREN} wird korrekt ($k=5$) zum Kryptotext aus Aufgabe 1.2.~(a).
+
+\subsection{}
+Es kann passieren, dass die letzte Zeile nicht vollständig oder gar überhaupt nicht gefüllt wird. Im Beispiel aus Aufgabe 1.2.~(a) ist dies kein Problem, ein Zeichen ist in Ordnung.
+Doch wenn in der letzten Zeile mehrere Zeichen fehlen (oder gar mehrere Zeichen in der letzten Spalte, z.B. bei $|M|=41, k=8$) dann gibt es ein Problem.
+
+Genau dies ist der Fall für $|M|=42, k=8$. Es folgt $w=6$. Tatsächlich ist $|M|$ ein Vielfaches von $w$: $7w=|M|$. Das bedeutet, es werden nur 7 Zeilen gefüllt, die unterste
+Zeile bleibt leer.
+
+Das würde in der Praxis bedeuten, dass das Band mit Leerzeichen aufgefüllt wird (unter Umständen mit Ausnahme des letzten Zeichens). Natürlich könnte auch ein beliebiges anderes Zeichen gewählt werden, nennen wir dieses Zeichen $x$. Nun kann ein Angreifer versuchen durch geschickes anordnen gleicher Buchstaben nebeneinander ohne den Schlüssel zu kennen die Nachricht zu entschlüsseln.
+
+Um dieses Problem zu umgehen gibt es zwei einfache Möglichkeiten:
+
+\begin{enumerate}
+	\item Klartext-Schlüssel-Kombinationen wählen, die möglichst gut $|M|=kw$ annähern.
+  \item Den Klartext mit zufälligen Zeichen auffüllen, bis $|M|=kw$ annähernd gilt.
+\end{enumerate}
+
+Ein weiteres nicht mit der Skytale lösbares Problem ist, dass der Angreifer durch Faktorisierungen der Zahlen $|M| \pm 1$ bereits seinen Raum an Entschlüsselungsmöglichkeiten stark eingrenzen kann.
 
 
 \section{Cäsar\protect\raisebox{1ex}{\normalfont\tiny 2}}

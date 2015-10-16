@@ -21,6 +21,7 @@
 
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{IEEEtrantools}
+\RequirePackage{listings}
 
 % fancyhdr setup
 \fancyhf{}
@@ -29,16 +30,16 @@
 \pagestyle{fancy}
 
 \RequirePackage{titlesec}
-\titleformat{\section}[hang]{\sffamily\bfseries}{Aufgabe \arabic{sheetno}.\arabic{section}:}{1em}{}[]
+\titleformat{\section}[hang]{\sffamily\bfseries}{Aufgabe \arabic{sheetno}.\arabic{section}.}{1em}{}[]
 \titleformat{\subsection}[hang]{\sffamily\bfseries}{\alph{subsection})}{1em}{}[]
 
 % font and hypersetup
 \AtBeginDocument{
   \usefont{\encodingdefault}{cmss}{m}{n}
   \hypersetup{
-    pdftitle    = {Kryptografische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
+    pdftitle    = {Kryptographische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
     pdfauthor   = {André Bajorat, Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Kristin Schmidt},
-    pdfsubject  = {Kryptografische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
+    pdfsubject  = {Kryptographische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
     pdfcreator  = {LaTeX},
   }}
 

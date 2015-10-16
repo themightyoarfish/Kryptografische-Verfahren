@@ -1,0 +1,20 @@
+\documentclass{../Crypto}
+\sheet{1}
+\begin{document}
+   \maketitle
+
+   \section{Rechnen mit Resten}
+
+   \subsection{}
+
+   \begin{IEEEeqnarray*}{rCl}
+      [a\cdot b]_n  & \stackrel{?}{=} & [a]_n \odot_n [b]_n \\
+                    & =               & [(n\cdot q + r) \cdot (n\cdot p + s)]_n \\
+                    & =               & [n^2pq + nqs + npr + rs]_n \\
+                    & =               & [n^2pq]_n \oplus_n [nqs]_n \oplus_n [npr]_n \oplus_n [rs]_n \\
+                    & =               & [rs]_n \\
+                    & =               & r \odot_n s \\
+                    & =               & [a]_n \odot_n [b]_n
+   \end{IEEEeqnarray*}
+   
+\end{document}

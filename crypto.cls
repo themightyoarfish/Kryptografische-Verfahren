@@ -64,3 +64,13 @@
   \hfill Besprechung \@date
   \end{center}
 } % end \maketitle
+
+\lstset{
+   basicstyle=\footnotesize\ttfamily,
+   breaklines=true,
+   commentstyle=\color{blue},
+   keywordstyle=\color{NavyBlue}\textbf,
+   numberstyle=\tiny\color{gray},
+   numbers=left,
+   stringstyle=\color{orange},
+}

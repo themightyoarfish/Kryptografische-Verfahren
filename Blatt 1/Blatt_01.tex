@@ -57,9 +57,31 @@
 \subsection{}
 
 
-\section{Cäsar\protect\raisebox{1ex}{\normalfont\tiny 2}}
+\section{Cäsar$^2$}
 
 \subsection{}
+
+\begin{itemize}
+   \item Die Schlüsselpaare $(k_1,k_2)$ und $(k_2,k_1)$ führen zur selben
+      Codierung, sodass die Schlüsselmenge effektiv wieder halbiert wird, da man
+      nur eine von je zwei Möglichkeiten testen muss
+   \item Es gilt
+      \begin{IEEEeqnarray*}{rCl}
+         E_{k_1,k_2}(M) & = & E_{k_2}(E_{k_1}(M)) \\
+                        & = & [[M + k_1] + k_2]_{26} \\
+                        & = & [M + k_1]_{26} \oplus_{26} [k_2]_{26} \\
+                        & = & [M + k_1]_{26} \oplus_{26} k_2 \\
+                        & = & [M]_{26} \oplus [k_1]_{26} \oplus_{26} k_2 \\
+                        & = & [M]_{26} \oplus k_1 \oplus_{26} k_2 \\
+                        & = & [M + (k_1 + k_2)]_{26}
+      \end{IEEEeqnarray*}
+
+      Somit stellt sich das selbe Problem wie bei der normalen
+      Cäsar-Verschlüsselung. Sobald ein Klartextzeichen und das zugehörige
+      Kryptozeichen bekannt sind, kann die Summe $(k_1 + k_2)$ berechnet werden.
+      Zwar kennt man die Einzelschlüsseln nicht, kann mit deren Summe aber
+      dennoch alle Texte entschlüsseln.
+\end{itemize}
 
 \subsection{}
 

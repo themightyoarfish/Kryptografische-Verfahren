@@ -73,4 +73,5 @@
    numberstyle=\tiny\color{gray},
    numbers=left,
    stringstyle=\color{orange},
+   xleftmargin=1cm,
 }

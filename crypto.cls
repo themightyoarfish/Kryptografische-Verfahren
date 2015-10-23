@@ -58,6 +58,7 @@
   \begin{center}\LARGE
   Lösungen zu Übungsblatt \arabic{sheetno}\\
   Kryptographische Verfahren
+  \vskip\baselineskip
   \hrule
   \normalsize
   \vspace{2mm}

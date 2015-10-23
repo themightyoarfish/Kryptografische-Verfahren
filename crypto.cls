@@ -22,6 +22,7 @@
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{IEEEtrantools}
 \RequirePackage{listings}
+\RequirePackage{eulervm}
 
 % fancyhdr setup
 \fancyhf{}

@@ -127,3 +127,5 @@ sympy-plots-for-*.tex/
 
 *.pdf
 *.class
+
+*.swp

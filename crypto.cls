@@ -24,6 +24,8 @@
 \RequirePackage{listings}
 \RequirePackage{eulervm}
 
+\renewcommand{\familydefault}{\sfdefault}
+
 % fancyhdr setup
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}

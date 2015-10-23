@@ -1,0 +1,45 @@
+\documentclass{../crypto}
+\sheet{2}
+\date{30. Oktober 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Multiplikation von Resten}
+
+\subsection{}
+
+\textcolor{orange}{Gäbe es ein inverses Element bezüglich $\odot_n$, so könnte
+man Folgendes rechnen:}
+
+% \vskip\baselineskip
+
+\begin{IEEEeqnarray*}{rCl}
+   [km]_n & = & [km^\prime] \\  
+   k \odot_n m & = & k \odot_n m^\prime \\
+   {}[k]_n \odot_n [m]_n & = & [k]_n \odot_n [m^\prime]_n \\
+   k \odot_n m & = & k \odot_n m^\prime \\
+   m & = & m^\prime
+\end{IEEEeqnarray*}
+
+\textcolor{orange}{Gibs aber nicht. Also habe ich einen ganzen Tag ohne
+Fortschritt mit der Suche nach einer anderen Begründung verbracht. Jetzt ist es
+9 Uhr. \textcolor{blue}{\#fuckmylife}}
+
+\subsection{}
+
+Für die Injektivität ist Folgendes zu zeigen.
+\begin{equation*}
+   E_k(m_1) = E_k(m_2) \Rightarrow m_1 = m_2
+\end{equation*}
+
+\begin{IEEEeqnarray*}{rCl}
+   [m_1k + l]_n & = & [m_2k + l]_n \\{}
+   [m_1k]_n \oplus_n [l]_n & = & [m_2k]_n \oplus_n [l]_n \\{}
+   [m_1k]_n \oplus_n l \oplus_n (n - l) & = & [m_2k]_n \oplus_n l \oplus_n (n - l)\\{}
+   [m_1k]_n & = & [m_2k]_n \\
+\end{IEEEeqnarray*}
+
+Nach Teilaufgabe a) folgt hieraus $m_1 = m_2$.
+\end{document}

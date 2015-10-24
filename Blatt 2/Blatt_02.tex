@@ -56,4 +56,33 @@ Für die Injektivität ist Folgendes zu zeigen.
 \end{IEEEeqnarray*}
 
 Nach Teilaufgabe a) folgt hieraus $m_1 = m_2$.
+\hfill$\Box$
+
+\section{Die Wahrscheinlichkeit von Kryptotexten in perfekt sicheren Kryptosystemen}
+
+Sei $Y$ die Zufallsvariable über den möglichen Kryptotexten $y\in\mathcal{C}$.
+Sei mit $\mathcal{C}(k) = \{c\in \mathcal{C} \mid \exists x\in \mathcal{M} :
+E_k(x) = c\}$ die Menge der durch einen Schlüssel $k$ in Abhängigkeit
+des Klartextes erzeugbaren Kryptotexte bezeichnet.
+Für die Wahrscheinlichkeit, einen bestimmten Kryptotext zu erhalten, gilt 
+\begin{align*}
+   P(Y=y)             & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k, E_k(x) = y) \\
+   P(Y=y)             & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k, X = E_k^{-1}(y)) \\
+                      & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k) ~ P(X = E_k^{-1}(y)) & \text{Schlüssel und Klartext unabhängig}\\
+                      & = \frac{1}{|\mathcal{K}|}\sum\limits_{\{k \mid y\in\mathcal{C}(k)\}}
+   P(X = E_k^{-1}(y)) & \text{Schlüssel gleichverteilt}\\
+   \intertext{Da das System perfekt sicher ist, $E_k$ injektiv sowie
+   $|\mathcal{C}|=|\mathcal{M}|$, gibt es für jedes
+$(x,y)\in\mathcal{M}\times\mathcal{C}$ genau ein $k$ mit $E_k(x)=y$.} \\
+                      &= \frac{1}{|\mathcal{K}|}\sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} \frac{1}{|\mathcal{K}|} \\
+   \intertext{Da $E_k$ injektiv ist, muss jedes $k$ auf
+      $|\mathcal{M}|=|\mathcal{C}|$ verschiedene Kryptotexte abbilden. Dies
+      bedeutet aber auch, dass jeder Kryptotext $c\in\mathcal{C}$ durch jedes
+      $k\in\mathcal{K}$ generiert werden kann. Die obige Summe iteriert folglich
+      über komplett $\mathcal{K}$, somit
+   }
+               P(Y=y) &= \frac{1}{|\mathcal{K}|}\cdot 1 \\
+\end{align*}
+\hfill$\Box$
+
 \end{document}

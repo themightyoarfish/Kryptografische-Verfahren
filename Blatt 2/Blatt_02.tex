@@ -16,17 +16,31 @@ man Folgendes rechnen:}
 % \vskip\baselineskip
 
 \begin{IEEEeqnarray*}{rCl}
-   [km]_n & = & [km^\prime] \\  
-   k \odot_n m & = & k \odot_n m^\prime \\
-   {}[k]_n \odot_n [m]_n & = & [k]_n \odot_n [m^\prime]_n \\
-   k \odot_n m & = & k \odot_n m^\prime \\
-   m & = & m^\prime
+   \left[km\right]_n                         & = & \left[km^\prime\right] \\
+   k \odot_n m                               & = & k \odot_n m^\prime \\
+   \left[k\right]_n \odot_n \left[m\right]_n & = & \left[k\right]_n \odot_n \left[m^\prime\right]_n \\
+   k \odot_n m                               & = & k \odot_n m^\prime \\
+   m                                         & = & m^\prime
 \end{IEEEeqnarray*}
 
-\textcolor{orange}{Gibs aber nicht. Also habe ich einen ganzen Tag ohne
+\textcolor{orange}{Gibs aber nicht. $\mathbb{Z}_n$ mit $\odot_n$ ist keine
+   Gruppe, weil $0$ schonmal kein Inverses haben kann ($0\cdot ? = 1$). Also habe ich einen ganzen Tag ohne
 Fortschritt mit der Suche nach einer anderen Begründung verbracht. Jetzt ist es
 9 Uhr. \textcolor{blue}{\#fuckmylife}}
 
+Noch ne Idee:
+\begin{align*}
+   \left[km\right]_n - \left[km^\prime\right] & = 0 \\
+   k\odot_n m - k \odot_n m^\prime            & = 0 \\
+   \left[km - km^\prime\right]_n              & = 0 \\
+   \left[k\cdot(m - m^\prime)\right]_n        & = 0 \\
+   k \odot_n (m - m^\prime)                   & = 0
+\end{align*}
+
+Das bedutet, dass $n$ $k \odot_n (m - m^\prime)$ teilt. Nach Vorraussetzung
+sind $n$ und $k$ teilerfremd, sodass $n$ stattdessen $(m - m^\prime)$ teilen
+muss. Da $m,m^\prime \in \mathbb{Z}_n$, kann $\left[m - m^\prime\right] = 0$ nur
+gelten, falls $m = m^\prime$.
 \subsection{}
 
 Für die Injektivität ist Folgendes zu zeigen.
@@ -35,10 +49,10 @@ Für die Injektivität ist Folgendes zu zeigen.
 \end{equation*}
 
 \begin{IEEEeqnarray*}{rCl}
-   [m_1k + l]_n & = & [m_2k + l]_n \\{}
-   [m_1k]_n \oplus_n [l]_n & = & [m_2k]_n \oplus_n [l]_n \\{}
-   [m_1k]_n \oplus_n l \oplus_n (n - l) & = & [m_2k]_n \oplus_n l \oplus_n (n - l)\\{}
-   [m_1k]_n & = & [m_2k]_n \\
+   \left[m_1k + l\right]_n                         & = & \left[m_2k + l\right]_n \\
+   \left[m_1k\right]_n \oplus_n \left[l\right]_n   & = & \left[m_2k\right]_n \oplus_n \left[l\right]_n \\
+   \left[m_1k\right]_n \oplus_n l \oplus_n (n - l) & = & \left[m_2k\right]_n \oplus_n l \oplus_n (n - l)\\
+   \left[m_1k\right]_n                             & = & \left[m_2k\right]_n \\
 \end{IEEEeqnarray*}
 
 Nach Teilaufgabe a) folgt hieraus $m_1 = m_2$.

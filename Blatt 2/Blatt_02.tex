@@ -103,10 +103,18 @@ kann mehrere solcher Kombinationen geben.
 \begin{align*}
    P(C=c) &= \sum\limits_{m\in\mathcal{M}} \sum\limits_{k\in\mathcal{K}_{m,c}}P(M=m \cap K=k) \\
           &= \sum\limits_{m\in\mathcal{M}} \sum\limits_{k\in\mathcal{K}_{m,c}}P(M=m)\cdot(K=k) & \text{Schlüssel \& Klartext unabhängig} \\
-          &= \sum\limits_{m\in\mathcal{M}} P(M=m) \sum\limits_{k\in\mathcal{K_{m,c}}}(K=k) \\
+          &= \sum\limits_{m\in\mathcal{M}} P(M=m) \sum\limits_{k\in\mathcal{K}_{m,c}}(K=k) \\
           &= \sum\limits_{m\in\mathcal{M}} P(M=m)\cdot P(\mathcal{K}_{m,c})
 \end{align*}
 
-\textcolor{orange}{to be continued}
+Damit gilt 
+\begin{align*}
+   P(M=m \mid C=c) &= \frac{P(M=m \cap C=c)}{P(C=c)} \\
+                   &= \frac{P(M=m)\cdot
+P(\mathcal{K}_{m,c})}{\sum_{m\in\mathcal{M}} P(M=m)\cdot
+P(\mathcal{K}_{m,c})} & \text{Siehe VL, Folie 5.33}
+\end{align*}
+
+\hfill$\Box$
 
 \end{document}

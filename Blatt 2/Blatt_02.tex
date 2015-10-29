@@ -104,31 +104,35 @@ c&=\left[\left[km\right]_{26} + l\right]_{26}\\
 \left[c - l\right]_{26}&=\left[km\right]_{26}
 \end{align*}
 Da $l \in \mathbb{Z}_{26}$ können wir $l$ als eine arbiträre Verschiebung ansehen
-und somit auslassen, d.h. wenn wir eine Lösung für $\left[c\right]_{26}=\left[km\right]_{26}$ finden, 
-gibt es auch genau eine passende Lösung für $\left[c - l\right]_{26}=\left[km\right]_{26}$.
+und somit auslassen, d.h. wenn wir eine Lösung für
+$\left[c\right]_{26}=\left[km\right]_{26}$ finden, gibt es auch genau eine
+passende Lösung für $\left[c - l\right]_{26}=\left[km\right]_{26}$.
 
 Das bedeutet auch, dass $c$ und $km$ kongruent modulo $n$ sind.
-% siehe https://de.wikipedia.org/wiki/Kongruenz_(Zahlentheorie)#L.C3.B6sbarkeit_von_linearen_Kongruenzen
-Das wiederum bedeutet, dass $\left[c\right]_{26}=\left[km\right]_{26}$ genau dann lösbar ist, wenn $ggT(k,n)$ $c$ teilt. Weil $ggT(k,n)=1$ gegeben ist, und $\frac{c}{1}=c$ ist, ist somit die Gleichung lösbar -- genauer noch: Sie hat genau $ggT(k,n)$ viele Lösungen.
+% siehe
+% https://de.wikipedia.org/wiki/Kongruenz_(Zahlentheorie)#L.C3.B6sbarkeit_von_linearen_Kongruenzen
+Das wiederum bedeutet, dass $\left[c\right]_{26}=\left[km\right]_{26}$ genau
+dann lösbar ist, wenn $ggT(k,n)$ $c$ teilt. Weil $ggT(k,n)=1$ gegeben ist, und
+$\frac{c}{1}=c$ ist, ist somit die Gleichung lösbar -- genauer noch: Sie hat
+genau $ggT(k,n)$ viele Lösungen.
 
-Sie ist damit eindeutig lösbar in $m$, was im Umkehrschluss aber auch bedeutet, dass es für jedes Paar $(m,c)$ genau eine Lösung von $\left[c\right]_{26}=\left[km\right]_{26}$ gibt, womit gezeigt ist, dass die Anzahl Schlüssel für jedes Paar konstant 1 ist.
+Sie ist damit eindeutig lösbar in $m$, was im Umkehrschluss aber auch bedeutet,
+dass es für jedes Paar $(m,c)$ genau eine Lösung von
+$\left[c\right]_{26}=\left[km\right]_{26}$ gibt, womit gezeigt ist, dass die
+Anzahl Schlüssel für jedes Paar konstant 1 ist.
 
 \subsection{}
 
 Wenn die Schlüssel gleichverteilt gewählt werden, ist die Wahrscheinlichkeit pro Schlüsselpaar $(k,l)$
 \begin{align*}
-P(\mathcal{K}_{m,c}) = \frac{1}{12\cdot 26} = \frac{1}{312}
+   P(K=(k,l)) = \frac{1}{12\cdot 26} = \frac{1}{312}
 \end{align*}
 Wir können in die Formel der vorhergehenden Aufgabe einsetzen
 \begin{align*}
-P(M=m \mid C=c) &= \frac{P(M=m)\cdot
-P(\mathcal{K}_{m,c})}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot
-P(\mathcal{K}_{m',c})} \\
-            &= \frac{P(M=m)\cdot
-\frac{1}{312}}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot
-\frac{1}{312}} \\
-            &= \frac{P(M=m)\cdot
-\frac{1}{312}}{\frac{1}{312}\cdot\sum_{m'\in\mathcal{M}} P(M=m')} \\
+P(M=m \mid C=c) &= \frac{P(M=m)\cdot P(\mathcal{K}_{m,c})}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot P(\mathcal{K}_{m',c})} \\
+            &= \frac{P(M=m)\cdot \frac{1}{312}}{\sum_{m'\in\mathcal{M}}
+P(M=m')\cdot \frac{1}{312}} & \text{Schlüssel nach a) eindeutig}\\
+            &= \frac{P(M=m)\cdot \frac{1}{312}}{\frac{1}{312}\cdot\sum_{m'\in\mathcal{M}} P(M=m')} \\
             &= \frac{P(M=m)}{\sum_{m'\in\mathcal{M}} P(M=m')} \\
             &= \frac{P(M=m)}{1} \\
             &= P(M=m)

@@ -117,4 +117,31 @@ P(\mathcal{K}_{m',c})} & \text{Siehe VL, Folie 5.33}
 
 \hfill$\Box$
 
+\section{Die Affine Verschlüsselung}
+
+\subsection{}
+
+\subsection{}
+
+Wenn die Schlüssel gleichverteilt gewählt werden, ist die Wahrscheinlichkeit pro Schlüsselpaar $(k,l)$
+\begin{align*}
+P(\mathcal{K}_{m,c}) = \frac{1}{12\cdot 26} = \frac{1}{312}
+\end{align*}
+Wir können in die Formel der vorhergehenden Aufgabe einsetzen
+\begin{align*}
+P(M=m \mid C=c) &= \frac{P(M=m)\cdot
+P(\mathcal{K}_{m,c})}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot
+P(\mathcal{K}_{m',c})} \\
+            &= \frac{P(M=m)\cdot
+\frac{1}{312}}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot
+\frac{1}{312}} \\
+            &= \frac{P(M=m)\cdot
+\frac{1}{312}}{\frac{1}{312}\cdot\sum_{m'\in\mathcal{M}} P(M=m')} \\
+            &= \frac{P(M=m)}{\sum_{m'\in\mathcal{M}} P(M=m')} \\
+            &= \frac{P(M=m)}{1} \\
+            &= P(M=m)
+\end{align*}
+\hfill$\Box$ \\
+Das heißt bei einer Gleichverteilung der Schlüssel ist AFFIN tatsächlich perfekt sicher.
+
 \end{document}

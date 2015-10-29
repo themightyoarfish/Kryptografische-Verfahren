@@ -10,30 +10,6 @@
 
 \subsection{}
 
-% \textcolor{orange}{Gäbe es ein inverses Element bezüglich $\odot_n$, so könnte
-% man Folgendes rechnen:}
-
-% % \vskip\baselineskip
-
-% \begin{IEEEeqnarray*}{rCl}
-%    \left[km\right]_n                         & = & \left[km^\prime\right] \\
-%    k \odot_n m                               & = & k \odot_n m^\prime \\
-%    % \left[k\right]_n \odot_n \left[m\right]_n & = & \left[k\right]_n \odot_n \left[m^\prime\right]_n \\
-%    % k \odot_n m                               & = & k \odot_n m^\prime \\
-%    m                                         & = & m^\prime
-% \end{IEEEeqnarray*}
-
-% \textcolor{orange}{Gibs aber nicht. $\mathbb{Z}_n$ mit $\odot_n$ ist keine
-%    Gruppe, weil $0$ kein Inverses haben kann ($0\cdot ? = 1$). Also habe ich einen ganzen Tag ohne
-% Fortschritt mit der Suche nach einer anderen Begründung verbracht. Jetzt ist es
-% 9 Uhr. \textcolor{blue}{\#fuckmylife}}
-
-% Noch ne Idee:
-
-% Brinkmeier said that one must argue with the co-primeness of n and k and that
-% one should consider the difference of the two terms. The keen reade will
-% notice that this is what I did here (credits go to Thorsten). So this should
-% do it.
 \begin{align*}
    \left[km\right]_n - \left[km^\prime\right]_n & = 0 \\
    k\odot_n m - k \odot_n m^\prime            & = 0 \\
@@ -120,6 +96,22 @@ P(\mathcal{K}_{m',c})} & \text{Siehe VL, Folie 5.33}
 \section{Die Affine Verschlüsselung}
 
 \subsection{}
+
+\begin{align*}
+E_{(k,l)}(m)&=\left[km+l\right]_{26}\\
+c&=\left[km+l\right]_{26}\\
+c&=\left[\left[km\right]_{26} + l\right]_{26}\\
+\left[c - l\right]_{26}&=\left[km\right]_{26}
+\end{align*}
+Da $l \in \mathbb{Z}_{26}$ können wir $l$ als eine arbiträre Verschiebung ansehen
+und somit auslassen, d.h. wenn wir eine Lösung für $\left[c\right]_{26}=\left[km\right]_{26}$ finden, 
+gibt es auch genau eine passende Lösung für $\left[c - l\right]_{26}&=&\left[km\right]_{26}$.
+
+Das bedeutet auch, dass $c$ und $km$ kongruent modulo $n$ sind.
+% siehe https://de.wikipedia.org/wiki/Kongruenz_(Zahlentheorie)#L.C3.B6sbarkeit_von_linearen_Kongruenzen
+Das widerum bedeutet, dass $\left[c\right]_{26}=\left[km\right]_{26}$ genau dann lösbar ist, wenn $ggT(k,n)$ $c$ teilt. Weil $ggT(k,n)=1$ gegeben ist, und $\frac{c}{1}=c$ ist, ist somit die Gleichung lösbar -- genauer noch: Sie hat genau $ggT(k,n)$ viele Lösungen.
+
+Sie ist damit eindeutig lösbar in $m$, was im Umkehrschluss aber auch bedeutet, dass es für jedes Paar $(m,c)$ genau eine Lösung von $\left[c\right]_{26}=\left[km\right]_{26}$ gibt, womit gezeigt ist, dass die Anzahl Schlüssel für jedes Paar konstant 1 ist.
 
 \subsection{}
 

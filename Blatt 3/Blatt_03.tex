@@ -1,7 +1,8 @@
 \documentclass{../crypto}
 \sheet{3}
 \date{30. Oktober 2015}
-\usepackage{tabularx}
+\usepackage{tabularx, tikz, placeins}
+\usetikzlibrary{positioning}
 \begin{document}
 
 \maketitle
@@ -11,13 +12,12 @@
 \subsection{}
 Um ein Textpaar $(m ,c)$ zu entschlüsseln, können alle Ergebnisse der Verschlüsselungen $E_{k_i}(m)$ 
 und die der Entschlüssselungen $D_{k_j}(c)$ miteinander verglichen werden. Im Fall $E_{k_i}(m)=D_{k_j}(c)$
-gilt, dass der Schlüssel zum Textpaar $(m, c)$ genau $(k_i, k_j)$ entspricht.
-
-Es sind also nun nur genau $2|K|$ Ver- bzw. Entschlüsselungsoperationen nötig.
+gilt, dass ein valider Schlüssel zum Textpaar $(m, c)$ genau $(k_i, k_j)$ ist.
+Es sind also nun nur genau $2|\mathcal{K}|$ Ver- bzw. Entschlüsselungsoperationen nötig.
 
 \subsection{}
 Genau wie bei a) können hier Zwischenergebnisse verglichen werden. Dabei müssen wir in einer
-Richtung $|K|^2$ Verschlüsselungen anwenden (eben genau $E_{k_i}(E_{k_j}(m))$), in der anderen genau 
+Richtung $|\mathcal{K}|^2$ Verschlüsselungen anwenden (eben genau $E_{k_i}(E_{k_j}(m))$), in der anderen genau 
 $|K|$ viele Entschlüsselungen, $D_{k_l}(c)$.
 
 Es sind also $|K|^2+|K|$ Ver- und Entschlüsselungsoperationen nötig.
@@ -133,5 +133,44 @@ Ergebnis: \textbf{LTBTYUNZJZSUR}
 Ergebnis: \textbf{KUEYFDYMYQLPO}
 
 \section{Kaskade}
+
+\FloatBarrier
+
+Unter der Annahme, dass ein Angreifer $\mathcal{A}$ existiert mit 
+\begin{equation*}
+   P\left(Att_{\mathcal{A},\Pi}^{CP}(n) = 1\right) = \frac{1}{2} +
+   \frac{1}{p(n)}
+\end{equation*}
+lässt sich das Schema aus \autoref{fig:angriff} konstruieren.
+Der konstruierte Angreifer $\mathcal{A}^\prime$ spielt gegenüber $\mathcal{A}$
+die Rolle von $\Pi = \Pi^1 \circ \Pi^2$. Er erhält von $\mathcal{A}$ zwei
+Klartexte, leitet diese an $\Pi^2$ weiter, das einen zufällig auswählt und mit
+$E_2$ verschlüsselt. Den Kryptotext $\widetilde{c}$ verschlüsselt
+$\mathcal{A}^\prime$ mit $E_1$ und schickt das Ergebnis $E_{k_1}^1(E_{k_2}^2(m_b))$ an $\mathcal{A}$ zurück.
+$\mathcal{A}$ entscheidet sich nun für einen der beiden Klartexte.
+
+$\mathcal{A}^\prime$ leitet die Entscheidung an $\Pi^2$ weiter.
+Offensichtlich ist $\mathcal{A}^\prime$ genau dann erfolgreich, wenn
+$\mathcal{A}$ erfolgreich ist. Damit wäre das sicher Kryptosystem $\Pi^2$ mit
+nicht vernachlässigbarer Wahrscheinlichkeit geknackt.
+
+\begin{figure}
+\begin{center}
+   \begin{tikzpicture}[node distance=2cm,scale=1,box/.style={draw,shape=rectangle,minimum width=2cm,minimum height=2cm}]
+   \node[box,fill=black    ] (A)    {                } ;
+   \node[box,right=of A    ] (A')   { $k_1$          } ;
+   \node[box,right=of A'   ] (Pi 2) { $k_2,~b$       } ;
+   \node[above=2em of A    ]        { $\mathcal  { A } $        } ;
+   \node[above=2em of A'   ]        { $\mathcal  { A } ^\prime$ } ;
+   \node[above=2em of Pi 2 ]        { $X=\Pi^2$      } ;
+   \draw[thick,>=latex,->] (A.30)     -- node[above] {$m_0,m_1$} (A'.150);
+   \draw[thick,>=latex,->] (A'.30)    -- node[above] {$m_0,m_1$} (Pi 2.150);
+   \draw[thick,>=latex,->] (Pi 2.210) -- node[below] {$\widetilde{c}$} (A'.-30);
+   \draw[thick,>=latex,->] (A'.210)   -- node[below] {$E^1_{k_1}(\widetilde{c})$} (A.-30);
+\end{tikzpicture}
+\end{center}
+\caption{Ablauf des hypothetischen Angriffs}
+\label{fig:angriff}
+\end{figure}
 
 \end{document}

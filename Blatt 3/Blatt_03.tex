@@ -1,0 +1,137 @@
+\documentclass{../crypto}
+\sheet{3}
+\date{30. Oktober 2015}
+\usepackage{tabularx}
+\begin{document}
+
+\maketitle
+
+\section{Polynomiell Sichere Kaskadenverschlüsselung}
+
+\subsection{}
+Um ein Textpaar $(m ,c)$ zu entschlüsseln, können alle Ergebnisse der Verschlüsselungen $E_{k_i}(m)$ 
+und die der Entschlüssselungen $D_{k_j}(c)$ miteinander verglichen werden. Im Fall $E_{k_i}(m)=D_{k_j}(c)$
+gilt, dass der Schlüssel zum Textpaar $(m, c)$ genau $(k_i, k_j)$ entspricht.
+
+Es sind also nun nur genau $2|K|$ Ver- bzw. Entschlüsselungsoperationen nötig.
+
+\subsection{}
+Genau wie bei a) können hier Zwischenergebnisse verglichen werden. Dabei müssen wir in einer
+Richtung $|K|^2$ Verschlüsselungen anwenden (eben genau $E_{k_i}(E_{k_j}(m))$), in der anderen genau 
+$|K|$ viele Entschlüsselungen, $D_{k_l}(c)$.
+
+Es sind also $|K|^2+|K|$ Ver- und Entschlüsselungsoperationen nötig.
+
+\subsection{}
+% I am not sure, if I understood this correctly...
+Wählt man $k_2=k_1$, so ergibt sich direkt:
+
+\begin{align*}
+    3DES_{k_1,k_2}(m) = DES_{k_1}\left(DES_{k_2}^{-1}\left(DES_{k_1}(m)\right)\right) \\
+    3DES_{k_1,k_1}(m) = DES_{k_1}\left(DES_{k_1}^{-1}\left(DES_{k_1}(m)\right)\right) \\
+    3DES_{k_1,k_1}(m) = DES_{k_1}\left(m\right)
+\end{align*}
+
+Das heißt, um DES zu simulieren, muss in 3DES nur zweimal der selbe Schlüssel gewählt werden.
+
+\section{Betriebsmodi}
+
+\begin{tabular}{ccccccccccccc|cc}
+$m_1$ & $m_2$ & $m_3$ & $m_4$ & $m_5$ & $m_6$ & $m_7$ & $m_8$ & $m_9$ & $m_{10}$ & $m_{11}$ & $m_{12}$ & $m_{13}$ & $k$ & $c_0$ \\\hline
+K & R & Y & P & T & O & G & R & A & P & H & I & E & D & X \\
+10 & 17 & 24 & 15 & 19 & 14 & 6 & 17 & 0 & 15 & 7 & 8 & 4 & 3 & 23
+\end{tabular}
+
+\subsection{CBC-Modus}
+\begin{align*}
+    \oplus: & \left[23+10\right]_{26} &= \left[33\right]_{26} &= 7\\
+    c_{1}: & \left[7+3\right]_{26} & &=10 \\
+    \oplus: & \left[10+17\right]_{26} &= \left[27\right]_{26} &= 1\\
+    c_{2}: & \left[1+3\right]_{26} & &= 4\\
+    \oplus: & \left[4+24\right]_{26} &= \left[28\right]_{26} &= 2\\
+    c_{3}: & \left[2+3\right]_{26} & &= 5\\
+    \oplus: & \left[5+15\right]_{26} & &= 20\\
+    c_{4}: & \left[20+3\right]_{26} & &= 23\\
+    \oplus: & \left[23+19\right]_{26} &= \left[42\right]_{26} &= 16\\
+    c_{5}: & \left[16+3\right]_{26} & &= 19\\
+    \oplus: & \left[19+14\right]_{26} &= \left[33\right]_{26} &= 7\\
+    c_{6}: & \left[7+3\right]_{26} & &= 10\\
+    \oplus: & \left[10+6\right]_{26} & &= 16\\
+    c_{7}: & \left[16+3\right]_{26} & &= 19\\
+    %
+    \oplus: & \left[19+17\right]_{26} &= \left[36\right]_{26} &= 10\\
+    c_{8}: & \left[10+3\right]_{26} & &= 13\\
+    \oplus: & \left[13+0\right]_{26} & &= 13\\
+    c_{9}: & \left[13+3\right]_{26} & &= 16\\
+    \oplus: & \left[16+15\right]_{26} &= \left[31\right]_{26} &= 5\\
+    c_{10}: & \left[5+3\right]_{26} & &= 8\\
+    \oplus: & \left[8+7\right]_{26} & &= 15\\
+    c_{11}: & \left[15+3\right]_{26} & &= 18\\
+    \oplus: & \left[18+8\right]_{26} & &= 0\\
+    c_{12}: & \left[0+3\right]_{26} & &= 3\\
+    \oplus: & \left[3+4\right]_{26} & &= 7\\
+    c_{13}: & \left[7+4\right]_{26} & &= 11
+\end{align*}
+
+Ergebnis: \textbf{KEFXTKTNQISDL}
+
+\subsection{CTR-Modus}
+\begin{align*}
+    \oplus: & \left[23+1\right]_{26} &= 1 \\
+    c_{1}: & \left[1+10\right]_{26} &= 11\\
+    \oplus: & \left[23+2\right]_{26} &= 2\\
+    c_{2}: & \left[2+17\right]_{26} &= 19\\
+    \oplus: & \left[23+3\right]_{26} &= 3\\
+    c_{3}: & \left[3+24\right]_{26} &= 1\\
+    c_{4}: & \left[4+15\right]_{26} &= 19\\
+    c_{5}: & \left[5+19\right]_{26} &= 24\\
+    c_{6}: & \left[6+14\right]_{26} &= 20\\
+    c_{7}: & \left[7+6\right]_{26} &= 16\\
+    c_{8}: & \left[8+17\right]_{26} &= 25\\
+    c_{9}: & \left[9+0\right]_{26} &= 9\\
+    c_{10}: & \left[10+15\right]_{26} &= 25\\
+    c_{11}: & \left[11+7\right]_{26} &= 18\\
+    c_{12}: & \left[12+8\right]_{26} &= 20\\
+    c_{13}: & \left[13+4\right]_{26} &= 17
+\end{align*}
+
+Ergebnis: \textbf{LTBTYUNZJZSUR}
+
+\subsection{Counter-Modus}
+
+\subsection{OFB-Modus}
+\begin{align*}
+    s_{1}: & \left[23+3\right]_{26} &= 0\\
+    c_{1}: & \left[10+0\right]_{26} &= 10\\
+    s_{2}: & \left[0+3\right]_{26} &= 3\\
+    c_{2}: & \left[17+3\right]_{26} &= 20\\
+    s_{3}: & \left[3+3\right]_{26} &= 6\\
+    c_{3}: & \left[24+6\right]_{26} &= 4\\
+    s_{4}: & \left[6+3\right]_{26} &= 9\\
+    c_{4}: & \left[15+9\right]_{26} &= 24\\
+    s_{5}: & \left[9+3\right]_{26} &= 12\\
+    c_{5}: & \left[19+12\right]_{26} &= 5\\
+    s_{6}: & \left[12+3\right]_{26} &= 15\\
+    c_{6}: & \left[14+15\right]_{26} &= 3\\
+    s_{7}: & \left[15+3\right]_{26} &= 18\\
+    c_{7}: & \left[6+18\right]_{26} &= 24\\
+    %
+    s_{8}: & \left[18+3\right]_{26} &= 21\\
+    c_{8}: & \left[17+21\right]_{26} &= 12\\
+    s_{9}: & \left[21+3\right]_{26} &= 24\\
+    c_{9}: & \left[0+24\right]_{26} &= 24\\
+    s_{10}: & \left[24+3\right]_{26} &= 1\\
+    c_{10}: & \left[15+1\right]_{26} &= 16\\
+    s_{11}: & \left[1+3\right]_{26} &= 4\\
+    c_{11}: & \left[7+4\right]_{26} &= 11\\
+    s_{12}: & \left[4+3\right]_{26} &= 7\\
+    c_{12}: & \left[8+7\right]_{26} &= 15\\
+    s_{13}: & \left[7+3\right]_{26} &= 10\\
+    c_{13}: & \left[4+10\right]_{26} &= 14
+\end{align*}
+
+Ergebnis: \textbf{KUEYFDYMYQLPO}
+
+\section{Kaskade}
+
+\end{document}

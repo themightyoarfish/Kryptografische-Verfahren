@@ -1,0 +1,27 @@
+\documentclass{../crypto}
+\sheet{4}
+\date{27. November 2015}
+
+\usepackage{mathtools}  % coloneqq
+\begin{document}
+
+\maketitle
+
+\section{Zufallsgeneratoren}
+
+\subsection{}
+
+Sei $G$ ein PZFG mit $|G(s)| > 4|s| = 4n$. Definiere $G^\prime \coloneqq
+G(s_1,\ldots,s_{\lfloor \frac{n}{2} \rfloor})$. Nach Voraussetzungen ist
+$G^\prime$ PZFG. Da $|G^\prime| > 2|s|$, gilt 
+\begin{equation*}
+   H(s) = G^\prime(0^{|s|} || s) = G(0^{|s|})
+\end{equation*}
+Also berechnet $H$ für alle $s$ den selben Wert und ist damit leicht von echtem
+Zufall unterscheidbar. Ein Distinguisher $\mcal{D}$ muss nur für gegebenes $s$
+den Wert $G(0^{|s|})$ berechnen und prüfen, ob $H(s) = G(0^{|s|})$. Daher ist
+$P(\mcal{D}(G(s)) = 1) = 1$, während die Situation, dass ein zufälliger
+Bistring $r$ gerade $r=G(0^{|s|})$ ist, nur eine von $2^{|s|}$ Möglichkeiten
+ist, $r$ zu wählen, mithin $P(\mcal{D}(r) = 1) = \frac{1}{2^{|s|}}$. Die
+Wahrscheinlichkeiten unterscheiden sich also nicht-vernachlässigbar.
+\end{document}

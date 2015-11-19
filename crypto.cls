@@ -79,3 +79,5 @@
    stringstyle=\color{orange},
    xleftmargin=1cm,
 }
+
+\newcommand{\mcal}[1]{\mathcal{#1}} 

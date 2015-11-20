@@ -2,26 +2,108 @@
 \sheet{4}
 \date{27. November 2015}
 
-\usepackage{mathtools}  % coloneqq
 \begin{document}
 
 \maketitle
 
 \section{Zufallsgeneratoren}
 
+Meines Erachtens macht es keinen Sinn, nach einem generellen Beweis zu fragen,
+dass $L$ und $H$ keine PZG sind. Eher sollte es darum gehen, dass sie nicht
+\emph{notwendigerweise} PZG sind, wenn $G$ und $G^\prime$ PZG sind, denn dies
+könnte von der Wahl von $G$ und $G^\prime$ abhängen. Diese
+Interpretation der Aufgabe wird hier angenommen (so wie z.B. Aufgabe 3.6 aus
+Katz \& Lindell).
+
+Sei $G$ ein PZG mit $|G(s)| > 4|s| = 4n$. Definiere $G^\prime \coloneqq
+G(s_1,\ldots,s_{\floor{ \frac{n}{2} }})$.  Nach Voraussetzungen ist
+$G^\prime$ PZG, denn $|G(s)| > 2n$. 
+
 \subsection{}
 
-Sei $G$ ein PZFG mit $|G(s)| > 4|s| = 4n$. Definiere $G^\prime \coloneqq
-G(s_1,\ldots,s_{\lfloor \frac{n}{2} \rfloor})$. Nach Voraussetzungen ist
-$G^\prime$ PZFG. Da $|G^\prime| > 2|s|$, gilt 
+Da $|G^\prime| > 2n$, gilt 
 \begin{equation*}
-   H(s) = G^\prime(0^{|s|} || s) = G(0^{|s|})
+   H(s) = G^\prime(0^{|s|} ~||~ s) = G(0^{|s|})
 \end{equation*}
-Also berechnet $H$ für alle $s$ den selben Wert und ist damit leicht von echtem
-Zufall unterscheidbar. Ein Distinguisher $\mcal{D}$ muss nur für gegebenes $s$
+Also berechnet $H$ für alle $s$ der Länge $n$ den selben Wert und ist damit leicht von echtem
+Zufall unterscheidbar. Ein Distinguisher $\mcal{D}$ muss nur für gegebenes $|s|$
+(die Länge des Seeds dürfte bekannt sein, oder er probiert alle $n$ Längen
+durch, was polynomiell in $n$ wäre)
 den Wert $G(0^{|s|})$ berechnen und prüfen, ob $H(s) = G(0^{|s|})$. Daher ist
 $P(\mcal{D}(G(s)) = 1) = 1$, während die Situation, dass ein zufälliger
 Bistring $r$ gerade $r=G(0^{|s|})$ ist, nur eine von $2^{|s|}$ Möglichkeiten
 ist, $r$ zu wählen, mithin $P(\mcal{D}(r) = 1) = \frac{1}{2^{|s|}}$. Die
 Wahrscheinlichkeiten unterscheiden sich also nicht-vernachlässigbar.
+
+\subsection{}
+
+% Not sure if this suffices; Maybe one could use ideas from
+% https://crypto.stackexchange.com/questions/30698/given-prng-gs-why-is-gs-gs1-not-a-prng,
+% but the guy/girl makes an assumption about some construction being a PRNG
+
+% B-B-B-B-Bullshiiiiiiet!
+% Ein Distinguisher $\mcal{D}$ berechnet $L(s)$ und $L(s+1)$ und gibt $1$ aus,
+% sofern die ersten $\frac{l(n)}{2}$ Bits von $L(s+1)$  übereinstimmen mit den
+% letzten $\frac{l(n)}{2}$ Bits von $L(s)$. Ein von $L$ generierter String wird
+% also mit Wahrscheinlichkeit $1$ als solcher erkannt. Hingegen ist die
+% Wahrscheinlichkeit, dass bei echt zufälligem $G(s+1)$ die erste Hälfte gleich der
+% zweiten von $G(s)$ ist $\frac{1}{2^{\frac{l(n)}{2}}}\cdot \frac{1}{2^{\frac{l(n)}{2}}} =
+% \frac{1}{2^{\frac{l(n)}{2}}}$. Die Wahrscheinlichkeiten unterscheiden sich
+% nicht-vernachlässigbar.
+
+Da $|G^\prime| > 2n$, nehmen wir an 
+\begin{align*}
+   L(s) & = G^\prime(s) ~||~ G^\prime(s+1)  \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G^\prime(s+1) \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G(s^\prime) \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G(s^\prime_1,\ldots,s^\prime_{\floor{\frac{n}{2}}}) \\
+\end{align*}
+
+Sei $D(K)$ ein Distinguisher mit 
+\begin{equation*}
+   D(K) = 
+   \begin{cases}
+      1, \text{falls $k_1,\ldots,k_{\frac{n}{2}} = k_{\frac{n}{2} + 1},\ldots,k_n$} \\
+      0\ \text{sonst}
+   \end{cases}
+\end{equation*}
+
+$|K|$ muss für Strings, die durch $L$ generiert wurden, gerade sein, da es
+eine Konkatenation zweier gleich langer Strings ist. Strings ungerader Länge
+können sofort als echt zufällig identifiziert werden und sind daher
+uninteressant.
+
+Addiert man $1$ zu $s$, so ist die Wahrscheinlichkeit, dass sich ein Bit in der
+vorderen Hälfte ändert die Wahrscheinlichkeit, dass alle Bits der unteren Hälfte
+$1$ sind. Damit $D$ $0$ zurück gibt auf einem von $L$ generierten String, muss
+genau der Fall eintreten, da die untere Hälfte jeweils abgeschnitten und
+ignoriert wurde.
+\begin{equation*}
+   P(\text{Bit $i$ geflippt mit $i>\frac{n}{2}$}) = \frac{1}{2^{\frac{n}{2}}},
+\end{equation*}
+denn die unteren $\frac{n}{2}$ Bits müssen $1$ sein.
+Daher ist 
+\begin{equation*}
+   P(D(G(s)) = 1) = 1 - P(D(G(s)) = 0) = 1 - \frac{1}{2^\frac{n}{2}}
+\end{equation*}
+
+Die Wahrscheinlichkeit, dass bei einem gleichverteilten Bitstring $r$ die obere
+und untere Hälfte übereinstimmen (was zu einer Fehleinschätzung von $D(r)$
+führen würde), lässt sich als Quotient der Anzahl von Strings, deren Hälften
+gleich sind und der Anzahl aller Strings berechnen. Für eine Hälfte gibt es
+$2^{\frac{n}{2}}$ Möglichkeiten und daher genauso viele Strings mit gleichen
+Hälften, gegenüber $2^n$ Strings insgesamt.
+\begin{equation*}
+   P(D(r) = 1) = \frac{2^{\frac{n}{2}}}{2^n} = 2^{-\frac{n}{2}} = \frac{1}{2^\frac{n}{2}}
+\end{equation*}
+
+Es gilt also 
+\begin{equation*}
+   |P(D(G(s)) = 1) - P(D(r) = 1)| = |1 - \frac{1}{2^\frac{n}{2}} -
+   \frac{1}{2^\frac{n}{2}}| = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
+   \frac{1}{2^{\frac{n}{2} - 1}}
+\end{equation*}
+
+Dies ist nicht vernachlässigbar und wird insbesondere größer für wachsendes $n$.
+$L$ ist also nicht notwendigerweise ein PZG.
 \end{document}

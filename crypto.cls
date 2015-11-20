@@ -23,6 +23,9 @@
 \RequirePackage{IEEEtrantools}
 \RequirePackage{listings}
 \RequirePackage{eulervm}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \renewcommand{\familydefault}{\sfdefault}
 

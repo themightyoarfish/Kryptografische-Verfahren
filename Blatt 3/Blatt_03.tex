@@ -1,8 +1,7 @@
 \documentclass{../crypto}
 \sheet{3}
 \date{13. November 2015}
-\usepackage{tabularx, tikz, placeins}
-\usetikzlibrary{positioning}
+\usepackage{tabularx, placeins}
 \begin{document}
 
 \maketitle
@@ -156,7 +155,7 @@ nicht vernachlässigbarer Wahrscheinlichkeit geknackt.
 
 \begin{figure}
 \begin{center}
-   \begin{tikzpicture}[node distance=2cm,scale=1,box/.style={draw,shape=rectangle,minimum width=2cm,minimum height=2cm}]
+   \begin{tikzpicture}[node distance=2cm,scale=1]
    \node[box,fill=black    ] (A)    {                } ;
    \node[box,right=of A    ] (A')   { $k_1$          } ;
    \node[box,right=of A'   ] (Pi 2) { $k_2,~b$       } ;

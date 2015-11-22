@@ -99,8 +99,8 @@ Hälften, gegenüber $2^n$ Strings insgesamt.
 
 Es gilt also 
 \begin{equation*}
-   |P(D(G(s)) = 1) - P(D(r) = 1)| = |1 - \frac{1}{2^\frac{n}{2}} -
-   \frac{1}{2^\frac{n}{2}}| = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
+   \left\lvert P(D(G(s)) = 1) - P(D(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
+   \frac{1}{2^\frac{n}{2}}\right\rvert = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
    \frac{1}{2^{\frac{n}{2} - 1}}
 \end{equation*}
 
@@ -108,6 +108,36 @@ Dies ist nicht vernachlässigbar und wird insbesondere größer für wachsendes 
 $L$ ist also nicht notwendigerweise ein PZG.
 
 \section{Beweis des Satzes von Goldbach-Levin (erster Teil)}
+
+Unter der Annahme, dass $g$ keine Einwegfunktion ist---also einen nicht
+vernachlässigbar häufig erfolgreichen Angreifer $\mcal{A}^\prime$ besitzt,
+können wir einen Angreifer $\mcal{A}$ auf die eigentliche Einwegfunktion $f$
+konstruieren. $\mcal{A}$ agiert als Orakel für $\mcal{A}^\prime$ und sendet
+seine erhaltene Eingabe $y$ weiter an $\mcal{A}^\prime$, nachdem es ein
+beliebiges $x_2$ mit $|x_2| = |y|$ gewählt hat. $\mcal{A}^\prime$
+antwortet mit einer Lösung $(x_1^\prime,x_2)$ für das Tupel. $\mcal{A}$ kann
+nun $x_1^\prime$  weiterleiten an $f$. 
+
+\begin{center}
+   \begin{tikzpicture}[node distance=4cm]
+      \node[box,fill=black,text=white] (A') {$\mcal{A}^\prime$ auf $g$};
+      \node[box,right=of A'] (A) {$\mcal{A}$ auf $f$};
+      \node[box,right=of A] (f) {$f(x)$};
+
+      \draw[thick,>=latex,<-] (A'.30)     -- node[above] {$(x_1=y,x_2)$} (A.150);
+      \draw[thick,>=latex,<-] (A.30)    -- node[above] {$y=f(x)$} (f.150);
+      \draw[thick,>=latex,<-] (f.210) -- node[below] {$x_1^\prime$} (A.-30);
+      \draw[thick,>=latex,<-] (A.210)   -- node[below] {$(x_1^\prime,x_2)$} (A'.-30);
+   \end{tikzpicture}
+\end{center}
+
+Offensichtlich ist $\mcal{A}$ genau dann
+erfolgreich, wenn $\mcal{A}^\prime$ erfolgreich ist. Dies ist ein Widerspruch
+zur Annahme, dass $g$ keine Einwegfunktion ist.
+
+\hfill{}$\Box$
+
+
 
 Put up your damn slides, man.
 
@@ -126,8 +156,9 @@ berechnen. Dann gälte
    g^{-1}(f(y)) &= f^{-1}(f^{-1}(f(y))) \\
                 &= f^{-1}(y)
 \end{align*}
-Und die Umkehrfunktion $f^{-1(y)}$ ist effizient als $g^{-1}(f(y))$ berechenbar,
-was ein Widerspruch ist, denn $f$ ist Einwegfunktion.
+Und die Umkehrfunktion $f^{-1}(y)$ ist effizient als $g^{-1}(f(y))$ berechenbar,
+was ein Widerspruch ist, denn $f$ ist Einwegfunktion. $g$ ist also eine
+Einwegfunktion.
 
 
 \end{document}

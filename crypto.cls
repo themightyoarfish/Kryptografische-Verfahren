@@ -19,6 +19,11 @@
        }{hyperref}
 \RequirePackage{hyperref}
 
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,calc}
+\tikzset{box/.style={draw,shape=rectangle,minimum width=2cm,minimum
+height=2cm,text width=1cm,inner sep=1pt,text centered}}
+
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{IEEEtrantools}
 \RequirePackage{listings}

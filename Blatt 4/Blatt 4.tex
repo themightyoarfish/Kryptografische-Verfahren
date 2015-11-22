@@ -106,4 +106,28 @@ Es gilt also
 
 Dies ist nicht vernachlässigbar und wird insbesondere größer für wachsendes $n$.
 $L$ ist also nicht notwendigerweise ein PZG.
+
+\section{Beweis des Satzes von Goldbach-Levin (erster Teil)}
+
+Put up your damn slides, man.
+
+\section{Einwegfunktionen?}
+
+Angenommen, $g$ wäre keine Einwegfunktion und man könnte $g^{-1}$ effizient
+berechnen. Dann gälte 
+\begin{align*}
+   g^{-1}(g(x)) &= x \\
+   g^{-1}(f(f(x))) &= x \\
+   g^{-1}(y) &= f^{-1}(f^{-1}(y)) \\
+   \intertext{
+      $g^{-1}$ revidiert also zwei Anwendungen von $f$. Dann ist aber auch
+      für $y=f(x)$
+   }
+   g^{-1}(f(y)) &= f^{-1}(f^{-1}(f(y))) \\
+                &= f^{-1}(y)
+\end{align*}
+Und die Umkehrfunktion $f^{-1(y)}$ ist effizient als $g^{-1}(f(y))$ berechenbar,
+was ein Widerspruch ist, denn $f$ ist Einwegfunktion.
+
+
 \end{document}

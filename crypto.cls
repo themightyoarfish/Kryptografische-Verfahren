@@ -52,7 +52,9 @@ height=2cm,text width=1cm,inner sep=1pt,text centered}}
     pdfauthor   = {André Bajorat, Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Kristin Schmidt},
     pdfsubject  = {Kryptographische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
     pdfcreator  = {LaTeX},
-  }}
+  }
+  \thispagestyle{empty}
+  }
 
 %
 % custom commands

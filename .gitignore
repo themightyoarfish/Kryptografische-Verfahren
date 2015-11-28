@@ -129,3 +129,5 @@ sympy-plots-for-*.tex/
 *.class
 
 *.swp
+.DS_Store
+0*_Blatt.pdf

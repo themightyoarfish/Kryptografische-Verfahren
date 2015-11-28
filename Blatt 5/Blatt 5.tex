@@ -1,0 +1,46 @@
+\documentclass{../crypto}
+\sheet{5}
+\date{4. Dezember 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Der Geburtstagsangriff mit konstantem Speicher terminiert}
+
+Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$
+verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu
+erhalten.
+
+\begin{align*}
+   P(n,k)  & = 1 \cdot \frac{2^k - 1}{2^k} \cdot \ldots \cdot \frac{2^k - n + 1}{2^k} \\
+   P(n,k)  & =   \prod_{i=0}^{n-1} \frac{2^k - i}{2^k}                                \\
+           & =   \prod_{i=1}^{n-1} (1 -  \frac{i}{2^k})                               \\
+\intertext{Da $(1-x)$ durch $e^{-x}$ nach oben abgeschätzt werden kann, gilt}
+           & \le \prod_{i=1}^{n-1} e^{-\frac{i}{2^k}} \\
+           & =   e^{\sum_{i=1}^{n-1}-\frac{i}{2^k}}   \\
+           & =   e^{-\frac{1}{2^k}\sum_{i=1}^{n-1}i}  \\
+           & =   e^{-\frac{1}{2^k} \frac{n(n-1)}{2}}  \\
+           & \le   e^{-\frac{(n-1)^2}{2\cdot 2^k}}    \\
+\end{align*}
+
+Gesucht ist nun $n$, sodass $P(n,128) = \frac{1}{4}$.
+
+\begin{align*}
+   e^{-\frac{(n-1)^2}{2\cdot 2^k}} & = \frac{1}{4}                        \\
+   -\frac{(n-1)^2}{2\cdot 2^k}     & = \ln{\frac{1}{4}}                   \\
+   -(n-1)^2                        & = 2\cdot 2^k \cdot \ln{\frac{1}{4}}  \\
+   -n^2 + 2n - 1                   & = 2\cdot 2^k \cdot \ln{\frac{1}{4}}  \\
+   n^2 - 2n + 1                    & = -2\cdot 2^k \cdot \ln{\frac{1}{4}} \\
+   \intertext{Mit den üblichen Verfahren, z.B. $pq$-Formel und
+   Computerunterstützung lässt dies als positive Lösung zu}
+   n_{128}                         & \approx 30.715.843.678.825.642.450 \ge 3.0716 \cdot 10^{19}
+\end{align*}
+
+Man müsste also mehr also über dreißig Trillionen
+Versuche machen. Analog gelangt man für $k=160$ zu dem Ergebnis 
+\begin{equation*}
+   n_{160} \approx 2.012.993.531.335.517.303.552.701 \ge 2.013 \cdot 10^{24}
+\end{equation*}
+oder etwa $2$ Quadrillionen Versuche.
+\end{document}

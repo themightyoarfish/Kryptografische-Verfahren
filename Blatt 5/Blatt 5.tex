@@ -46,5 +46,12 @@ oder etwa $2$ Quadrillionen Versuche.
 
 \section{Der Geburtstagsangriff mit konstantem Speicher findet Kollisionen}
 
+Falls es $1 \le 1 < I < J$ mit $x_I = x_J$ und damit $H(x_{I-1}) = H(x_{J-1})$
+gibt, so hat die Folge $x_1,\ldots,x_q$ offenbar eine Periode von $J - I$. Der
+$J$-te Wert ist also gleich dem $I$-ten. Falls man die Periodizität schon für $i
+< I$ annehmen kann, gilt $x_{J-I} = x_{J-I + J-I} = x_{2(J-I)}$.
+
+Allgemein stimmt die Aussage aber nicht. Gilt zum Beispiel $x_7 = x_{12}$, so
+ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
 
 \end{document}

@@ -54,7 +54,6 @@ $(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. Falls man die Periodizität sch
 Allgemein stimmt die Aussage aber nicht. Gilt zum Beispiel $x_7 = x_{12}$, so
 ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
 
-
 \section{Schlüsseltauschprotokolle}
 
 \paragraph{a)} Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann
@@ -79,4 +78,30 @@ $A$ und $k_{AB}$ auf $k_B$ schließen. Der Angriff funktioniert auch, wenn das
 Protokoll um einen Timestamp erweitert wird.
 
 \section{Ein sicheres Protokoll?}
+
+\subsection{}
+\begin{align*}
+	w \oplus t
+	&= u \oplus r \oplus t\\
+	&= s \oplus t \oplus r \oplus t\\
+	&= k \oplus r \oplus t \oplus r \oplus t\\
+	&= k \oplus r \oplus r \oplus t \oplus t\\
+	&= k \oplus 0 \oplus 0\\
+	&= k
+\end{align*}
+
+\subsection{}
+
+\begin{enumerate}
+   \item Erste Nachricht von Alice abfangen $\rightarrow s := k \oplus r$
+     \item Erste Nachricht von Bob abfangen $\rightarrow u := s \oplus t$
+     \item Zweite Nachricht von Alice abfangen $\rightarrow w := u \oplus r$
+     \item Berechnen: 
+        \begin{align*}
+           r & = w \oplus u \quad \left(u \oplus r \oplus u\right)\\
+           k & = s \oplus r \quad \left(k \oplus r \oplus r\right)
+        \end{align*}
+\end{enumerate}
+Damit hat der Angreifer den Schlüssel, der von Alice und Bob verwendet wird.
+
 \end{document}

@@ -56,8 +56,27 @@ ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
 
 
 \section{Schlüsseltauschprotokolle}
-\paragraph{a)} Lässt man den Zeitstempel beim Breitmaulfroschprotokoll 
-\paragraph{b)} 
-\paragraph{c)} Da Alice A und den Sessionkey weiß, kann sie aus E_kB(A,k_B) und A und k_B auf k_B schließen
+
+\paragraph{a)} Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann
+ein Angreifer durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen
+Kryptoptexten und einem (mindestens) teilweise bekannten Klartext die
+Kommunikation abhören.
+
+\paragraph{b)} Das Needham-Schroeder- und das Otway-Rees-Protokoll 
+sind sicher gegen Angriffe mit bekannten Sitzungsschlüsseln, weil Charlie diesen
+immer neu generiert. Wir hoffen, dass Charlie ein Verfahren verwendet, dass es 
+nicht zulässt von alten Schlüsseln auf neue Schlüssel zu schließen -- z.B.
+unter Verwendung von Timestamps. Sind diese Timestamps nicht vorhanden, sind
+Replay-Attacken jedoch weiterhin möglich.
+
+Das Diffie-Hellman-Protokoll ist sicher gegen Angriffe mit bekannten 
+Sitzungsschlüsseln, weil ...?
+
+
+\paragraph{c)} Da Alice $A$ und den Sessionkey aus 
+$E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$ weiß, kann sie aus $E_{kB}(A,k_{AB})$, 
+$A$ und $k_{AB}$ auf $k_B$ schließen. Der Angriff funktioniert auch, wenn das 
+Protokoll um einen Timestamp erweitert wird.
+
 \section{Ein sicheres Protokoll?}
 \end{document}

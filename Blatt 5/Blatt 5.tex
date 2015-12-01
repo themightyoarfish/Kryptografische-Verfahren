@@ -54,4 +54,34 @@ $(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. Falls man die Periodizität sch
 Allgemein stimmt die Aussage aber nicht. Gilt zum Beispiel $x_7 = x_{12}$, so
 ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
 
+\section{Ein sicheres Protokoll?}
+
+\textbf{(a)}
+\begin{align*}
+	&\phantom{=} w \oplus t\\
+	&= u \oplus r \oplus t\\
+	&= s \oplus t \oplus r \oplus t\\
+	&= k \oplus r \oplus t \oplus r \oplus t\\
+	&= k \oplus r \oplus r \oplus t \oplus t\\
+	&= k \oplus 0 \oplus 0\\
+	&= k
+\end{align*}
+
+\noindent \textbf{(b)}
+
+\noindent Erste Nachricht von Alice abfangen $\rightarrow s := k \oplus r$
+
+\noindent Erste Nachricht von Bob abfangen $\rightarrow u := s \oplus t$
+
+\noindent Zweite Nachricht von Alice abfangen $\rightarrow w := u \oplus r$
+
+\noindent Dann berechnen:
+
+\smallskip
+\noindent$r = w \oplus u \quad \left(u \oplus r \oplus u\right)$\\
+$k = s \oplus r \quad \left(k \oplus r \oplus r\right)$
+
+\smallskip
+\noindent$\rightarrow$ Damit hat der Angreifer den Schlüssel, der von Alice und Bob verwendet wird.
+
 \end{document}

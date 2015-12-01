@@ -49,7 +49,8 @@ height=2cm,text width=1cm,inner sep=1pt,text centered}}
   \usefont{\encodingdefault}{cmss}{m}{n}
   \hypersetup{
     pdftitle    = {Kryptographische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
-    pdfauthor   = {André Bajorat, Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Kristin Schmidt},
+    pdfauthor   = {Rasmus Diederichsen, Lisa Goerke, Sebastian Höffner, Sven
+    Kleine-Albers, Kristin Schmidt},
     pdfsubject  = {Kryptographische Verfahren -- \"Ubungsblatt \arabic{sheetno}},
     pdfcreator  = {LaTeX},
   }
@@ -65,9 +66,9 @@ height=2cm,text width=1cm,inner sep=1pt,text centered}}
 \newcommand*{\sheet}[1]{\setcounter{sheetno}{#1}}
 
 \def\maketitle{ %
-  \noindent André Bajorat \hfill Sebastian Höffner\\
-  Rasmus Diederichsen \hfill Kristin Schmidt\\ 
-  Lisa Goerke \hfill
+  \noindent Rasmus Diederichsen \hfill Sven Kleine-Albers \\
+  Lisa Goerke \hfill Kristin Schmidt\\ 
+  Sebastian Höffner \hfill
   \begin{center}\LARGE
   Lösungen zu Übungsblatt \arabic{sheetno}\\
   Kryptographische Verfahren

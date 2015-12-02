@@ -7,11 +7,7 @@
 \maketitle
 
 \section{Der Geburtstagsangriff mit konstantem Speicher terminiert}
-
-Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$
-verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu
-erhalten.
-
+Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$ verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu erhalten.
 \begin{align*}
    P(n,k)  & = 1 \cdot \frac{2^k - 1}{2^k} \cdot \ldots \cdot \frac{2^k - n + 1}{2^k} \\
    P(n,k)  & =   \prod_{i=0}^{n-1} \frac{2^k - i}{2^k}                                \\
@@ -23,9 +19,7 @@ erhalten.
            & =   e^{-\frac{1}{2^k} \frac{n(n-1)}{2}}  \\
            & \le   e^{-\frac{(n-1)^2}{2\cdot 2^k}}    \\
 \end{align*}
-
 Gesucht ist nun $n$, sodass $P(n,128) = \frac{1}{4}$.
-
 \begin{align*}
    e^{-\frac{(n-1)^2}{2\cdot 2^k}} & = \frac{1}{4}                        \\
    -\frac{(n-1)^2}{2\cdot 2^k}     & = \ln{\frac{1}{4}}                   \\
@@ -34,55 +28,31 @@ Gesucht ist nun $n$, sodass $P(n,128) = \frac{1}{4}$.
    n^2 - 2n + 1                    & = -2\cdot 2^k \cdot \ln{\frac{1}{4}} \\
    \intertext{Mit den üblichen Verfahren, z.B. $pq$-Formel und
    Computerunterstützung lässt dies als positive Lösung zu}
-   n_{128}                         & \approx 30.715.843.678.825.642.450 \ge 3.0716 \cdot 10^{19}
+   n_{128}                         & \approx 30.715.843.678.825.642.450 \le 3.0716 \cdot 10^{19}
 \end{align*}
-
-Man müsste also mehr also über dreißig Trillionen
-Versuche machen. Analog gelangt man für $k=160$ zu dem Ergebnis 
+Man müsste also mehr also über dreißig Trillionen Versuche machen. Analog gelangt man für $k=160$ zu dem Ergebnis 
 \begin{equation*}
-   n_{160} \approx 2.012.993.531.335.517.303.552.701 \ge 2.013 \cdot 10^{24}
+   n_{160} \approx 2.012.993.531.335.517.303.552.701 \le 2.013 \cdot 10^{24}
 \end{equation*}
 oder etwa $2$ Quadrillionen Versuche.
 
 \section{Der Geburtstagsangriff mit konstantem Speicher findet Kollisionen}
-
-Falls es $1 \le 1 < I < J$ mit $x_I = x_J$ und damit $H(x_{I-1}) = H(x_{J-1})$
-gibt, so hat die Folge $x_1,\ldots,x_q$ offenbar eine Periode von $J - I$. Der
-$(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. Falls man die Periodizität schon für $i
-< I$ annehmen kann, gilt $x_{J-I} = x_{J-I + J-I} = x_{2(J-I)}$.
-
-Allgemein stimmt die Aussage aber nicht. Gilt zum Beispiel $x_7 = x_{12}$, so
-ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
+Falls es $1 \le 1 < I < J$ mit $x_I = x_J$ und damit $H(x_{I-1}) = H(x_{J-1})$ gibt, so hat die Folge $x_1,\ldots,x_q$ offenbar eine Periode von $J - I$. Der $(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. Falls man die Periodizität schon für $i < I$ annehmen kann, gilt $x_{J-I} = x_{J-I + J-I} = x_{2(J-I)}$.\\
+Allgemein stimmt die Aussage aber nicht!\\
+Gilt zum Beispiel $x_7 = x_{12}$, so ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
 
 \section{Schlüsseltauschprotokolle}
+\subsection{}
+Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann ein Angreifer durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen Kryptoptexten und einem (mindestens) teilweise bekannten Klartext die Kommunikation abhören.
 
 \subsection{}
-
-Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann ein Angreifer
-durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen Kryptoptexten
-und einem (mindestens) teilweise bekannten Klartext die Kommunikation abhören.
+Das Needham-Schroeder- und das Otway-Rees-Protokoll sind sicher gegen Angriffe mit bekannten Sitzungsschlüsseln, weil Charlie diesen immer neu generiert. Wir hoffen, dass Charlie ein Verfahren verwendet, dass es nicht zulässt von alten Schlüsseln auf neue Schlüssel zu schließen -- z.B.  unter Verwendung von Timestamps. Sind diese Timestamps nicht vorhanden, sind Replay-Attacken jedoch weiterhin möglich.\\
+Das Diffie-Hellman-Protokoll ist sicher gegen Angriffe mit bekannten Sitzungsschlüsseln, weil ...?
 
 \subsection{}
-
-Das Needham-Schroeder- und das Otway-Rees-Protokoll sind sicher gegen Angriffe
-mit bekannten Sitzungsschlüsseln, weil Charlie diesen immer neu generiert. Wir
-hoffen, dass Charlie ein Verfahren verwendet, dass es nicht zulässt von alten
-Schlüsseln auf neue Schlüssel zu schließen -- z.B.  unter Verwendung von
-Timestamps. Sind diese Timestamps nicht vorhanden, sind Replay-Attacken jedoch
-weiterhin möglich.
-
-Das Diffie-Hellman-Protokoll ist sicher gegen Angriffe mit bekannten 
-Sitzungsschlüsseln, weil ...?
-
-
-\subsection{}
-
-Da Alice $A$ und den Sessionkey aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$
-weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen. Der
-Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.
+Da Alice $A$ und den Sessionkey aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$ weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen. Der Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.
 
 \section{Ein sicheres Protokoll?}
-
 \subsection{}
 \begin{align*}
 	w \oplus t & = u \oplus r \oplus t                   \\
@@ -94,17 +64,15 @@ Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.
 \end{align*}
 
 \subsection{}
-
 \begin{enumerate}
-   \item Erste Nachricht von Alice abfangen $\rightarrow s := k \oplus r$
-     \item Erste Nachricht von Bob abfangen $\rightarrow u := s \oplus t$
-     \item Zweite Nachricht von Alice abfangen $\rightarrow w := u \oplus r$
-     \item Berechnen: 
+    \item Erste Nachricht von Alice abfangen $\rightarrow s := k \oplus r$
+    \item Erste Nachricht von Bob abfangen $\rightarrow u := s \oplus t$
+    \item Zweite Nachricht von Alice abfangen $\rightarrow w := u \oplus r$
+    \item Berechnen: 
         \begin{align*}
            r & = w \oplus u \quad \left(u \oplus r \oplus u\right)\\
            k & = s \oplus r \quad \left(k \oplus r \oplus r\right)
         \end{align*}
 \end{enumerate}
 Damit hat der Angreifer den Schlüssel, der von Alice und Bob verwendet wird.
-
 \end{document}

@@ -9,7 +9,11 @@
 \maketitle
 
 \section{Der Geburtstagsangriff mit konstantem Speicher terminiert}
-Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$ verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu erhalten.
+
+Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$
+verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu
+erhalten.
+
 \begin{align*}
    P(n,k)  & = 1 \cdot \frac{2^k - 1}{2^k} \cdot \ldots \cdot \frac{2^k - n + 1}{2^k} \\
    P(n,k)  & =   \prod_{i=0}^{n-1} \frac{2^k - i}{2^k}                                \\
@@ -82,7 +86,7 @@ Sitzungsschlüssel $k_{AB}$ und hat die dritte Nachricht $E_{k_{SB}}(A,k_{AB})$
 sendet) aufgezeichnet. Er kann nun die Nachricht erneut an Bob senden, welcher
 mit seiner verschlüsselten Zufallszahl $E_{k_{AB}}(r_B)$ antwortet. Diese kann
 Everett entschlüsseln, ändern, verschlüsseln und wieder an Bob schicken, sodass
-dieser dann denkt, er würde mit Alice kommuizieren.
+dieser dann denkt, er würde mit Alice kommunizieren.
 
 Ist allerdings \textbf{nur} der Sitzungsschlüssel bekannt, kann ein Angreifer
 damit nichts anfangen, denn die Nonce $r_A$ garantiert Alice dass der erhaltene
@@ -114,7 +118,7 @@ durchführen, kennt er aber nur den alten Schlüssel, geht dies nicht.
 
 \subsection{}
 
-Da Alice $A$ und den Sessionkey aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$
+Da Alice $A$ und den Sitzungsschlüssel aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$
 weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen, je
 nach Verschlüsselungsverfahren (z.B. Rainbow Tables). Der
 Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.

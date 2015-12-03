@@ -75,22 +75,48 @@ schnell genug zurück an Charlie, kann der Schlüssel so am Leben erhalten werde
 
 \subsection{}
 
-Das Needham-Schroeder- und das Otway-Rees-Protokoll sind sicher gegen Angriffe
-mit bekannten Sitzungsschlüsseln, weil Charlie diesen immer neu generiert. Wir
-hoffen, dass Charlie ein Verfahren verwendet, dass es nicht zulässt von alten
-Schlüsseln auf neue Schlüssel zu schließen -- z.B.  unter Verwendung von
-Timestamps. Sind diese Timestamps nicht vorhanden, sind Replay-Attacken jedoch
-weiterhin möglich.
+Das Needham-Schroeder-Protokoll ist \textbf{nicht} sicher gegen Angriffe mit
+bekanntem Sitzungsschlüssel mit Zusatzinformation. Angenommen, Everett kennt einen alten
+Sitzungsschlüssel $k_{AB}$ und hat die dritte Nachricht $E_{k_{SB}}(A,k_{AB})$
+(also die Nachricht, in der Charlie ein für Bob bestimmtes Chiffrat an Alice
+sendet) aufgezeichnet. Er kann nun die Nachricht erneut an Bob senden, welcher
+mit seiner verschlüsselten Zufallszahl $E_{k_{AB}}(r_B)$ antwortet. Diese kann
+Everett entschlüsseln, ändern, verschlüsseln und wieder an Bob schicken, sodass
+dieser dann denkt, er würde mit Alice kommuizieren.
+
+Ist allerdings \textbf{nur} der Sitzungsschlüssel bekannt, kann ein Angreifer
+damit nichts anfangen, denn die Nonce $r_A$ garantiert Alice dass der erhaltene
+Schlüssel aktuell ist und die Schlüssel werden von Charlie unabhängig generiert.
+
+Bei Otway-Rees existiert das Problem mit der fehlenden Authentizität nicht
+(s.o.). Bob kann also nicht so einfach über die Identität seines
+Kommunikationspartners getäuscht werden. Auch hier generiert Charlie unabhängig
+die Sitzungsschlüssel $k_{AB}$ und Alice und Bob werden durch die Noncen $r_A$
+und $r_B$ von der Aktualität überzeugt.
+
+% Das Otway-Rees-Protokoll sicher gegen Angriffe
+% mit bekannten Sitzungsschlüsseln, weil Charlie diesen immer neu generiert. Wir
+% hoffen, dass Charlie ein Verfahren verwendet, dass es nicht zulässt von alten
+% Schlüsseln auf neue Schlüssel zu schließen -- z.B.  unter Verwendung von
+% Timestamps. Sind diese Timestamps nicht vorhanden, sind Replay-Attacken jedoch
+% weiterhin möglich.
 
 % Das Diffie-Hellman-Protokoll ist sicher gegen Angriffe mit bekannten 
 % Sitzungsschlüsseln, weil für jeder Sitzung sehr trivial neue Schlüssel erzeugt
 % werden können, denn es müssen nur Zufallszahlen $a$ und $b$ von Alice und Bob
 % generiert sowie zwei Nachrichten ausgetauscht werden
 
+Für den Diffie-Hellman-Schlüsseltausch werden in jeder Sitzung die Exponenten
+$a$ und $b$ neu zufällig generiert. Wenn ein Angreifer einen Schlüssel $(g^a \mod
+p)^b \mod p$ kennt, kann er nicht einfach $a$ oder $b$ berechnen oder auch bloß
+$(g^a \mod p)$. Mit der letzen Information könnte er eine MITM-Attacke
+durchführen, kennt er aber nur den alten Schlüssel, geht dies nicht.
+
 \subsection{}
 
 Da Alice $A$ und den Sessionkey aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$
-weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen. Der
+weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen, je
+nach Verschlüsselungsverfahren (z.B. Rainbow Tables). Der
 Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.
 
 \section{Ein sicheres Protokoll?}

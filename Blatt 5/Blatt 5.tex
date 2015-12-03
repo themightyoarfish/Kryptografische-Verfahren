@@ -48,14 +48,30 @@ gibt, so hat die Folge $x_1,\ldots,x_q$ offenbar eine Periode von $J - I$. Der
 $(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. Falls man die Periodizität
 schon für $i < I$ annehmen kann, gilt $x_{J-I} = x_{J-I + J-I} = x_{2(J-I)}$.\\
 Allgemein stimmt die Aussage aber nicht!\\ Gilt zum Beispiel $x_7 = x_{12}$, so
-ist $x_8 = x_{13}, x_9 = x_{14},\ldots,x_{10} = x_{15}$.
+ist $x_8 = x_{13}, x_9 = x_{14},x_{10} = x_{15},x_{11} = x_{16}$ und kein $i <
+J$ erfüllt die Bedingung.
 
 \section{Schlüsseltauschprotokolle}
 \subsection{}
 
-Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann ein Angreifer
-durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen Kryptoptexten
-und einem (mindestens) teilweise bekannten Klartext die Kommunikation abhören.
+Der Breitmaulfrosch ist nicht einmal gegen Angriffe ohne bekannten Schlüssel
+sicher, wenn es keinen Zeitstempel gibt. Fängt der Angreifer eine Nachricht ab,
+deren Inhalt er kennt (hierfür könnte er den bekannten Schlüssel vielleicht
+verwenden), so könnte er diese erneut senden und erneut eine Reaktion auslösen
+(z.B. eine Überweisung o.Ä.). 
+
+Ein Problem ist auch, dass vor allem ohne Zeitstempel (aber potenziell auch mit,
+wenn der Angriff innerhalb eines Zeitfensters durchgeführt wird, das nicht
+verdächtig ist) ein Angreifer die Validität eines Schlüssels erhalten kann,
+indem er abwechseln Alice und Bob vertritt und die Nachricht
+$E_{K_{BC}}(t_Z, A, K_{AB})$ an Charlie sendet, die dieser zuvor an Bob
+geschickt hatte. Charlie sendet dann $E_{K_{AC}}(t_Z^\prime, B, K_{AB})$ an
+Alice und der Schlüssel $K_{AB}$ bleibt aktiv. Sendet man die Nachricht immer
+schnell genug zurück an Charlie, kann der Schlüssel so am Leben erhalten werden.
+
+% Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann ein Angreifer
+% durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen Kryptoptexten
+% und einem (mindestens) teilweise bekannten Klartext die Kommunikation abhören.
 
 \subsection{}
 

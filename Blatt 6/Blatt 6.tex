@@ -128,50 +128,11 @@ Das können wir erneut geschickt berechnen:
   \left[11^{4}\right]_{35} &= 11
 \end{align*}
 
+
 \section{Erweiterter Euklidischer Algorithmus}
 
 \subsection{}
-\subsection{}
-\subsection{}
 
-Wir zeigen zunächst Folgendes:
-
-\begin{theorem}
-Falls $a = \floor*{\frac{a}{b}} + [a]_b = qb + r$, dann
-   ist $ggt(a,b) = ggt(b,r)$
-\end{theorem}
-\begin{proof}
-   Sei $d=ggT(a,b)$, also gilt
-   \begin{align*}
-      a & = dn \\
-      b & = dm \\
-      \intertext{Und daher}
-      a - b & = dn - dm  = d(n-m) = dl
-   \end{align*}
-   Also is $d$ Teiler von $a$ sowie von $a-b$. Alle gemeinsamen Teiler von $a$
-   und $b$ sind also Teiler von $a-b$. Deshalb gilt
-   \begin{align*}
-      b & = a - (a - b) = dn - dl = d(n - l) = dk
-   \end{align*}
-   und alle gemeinsamen Teiler von $a$ und $a-b$ sind Teiler von $b$. Die
-   wiederholte Subtraktion von $b$ von $a$ ändert also nichts an den gemeinsamen
-   Teilern. Es folgt $ggT(a,b) = ggT(b,a) = ggT(b, a - b) = ggT(b, a - b - b) =
-   \ldots = ggT(b, a - qb) = ggT(b,r)$.
-\end{proof}
-
-Es folgt also aus der zu zeigenden Aussage
-\begin{align*}
-   ggT(b,r) = xb + yr & = ggT(a,b) = ya + xb - qyb \\
-            yr & = ya - yqb \\
-            y [a]_b & = ya - yqb \\
-                    & = ya -y \floor*{\frac{a}{b}} b \\
-                    & = ya - y(a - [a]_b) \\
-                    & = ya - ya + y [a]_b \\
-                    & = y [a]_b
-\end{align*}
-Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
-
-\section{Merkle-Hellmann-Verfahren}
 \begin{align*}
   a         &= 23\\
   b         &= 17\\
@@ -212,12 +173,50 @@ Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
 
 \subsection{}
 
+Wir zeigen zunächst Folgendes:
+
+\begin{theorem}
+Falls $a = \floor*{\frac{a}{b}} + [a]_b = qb + r$, dann
+   ist $ggt(a,b) = ggt(b,r)$
+\end{theorem}
+\begin{proof}
+   Sei $d=ggT(a,b)$, also gilt
+   \begin{align*}
+      a & = dn \\
+      b & = dm \\
+      \intertext{Und daher}
+      a - b & = dn - dm  = d(n-m) = dl
+   \end{align*}
+   Also is $d$ Teiler von $a$ sowie von $a-b$. Alle gemeinsamen Teiler von $a$
+   und $b$ sind also Teiler von $a-b$. Deshalb gilt
+   \begin{align*}
+      b & = a - (a - b) = dn - dl = d(n - l) = dk
+   \end{align*}
+   und alle gemeinsamen Teiler von $a$ und $a-b$ sind Teiler von $b$. Die
+   wiederholte Subtraktion von $b$ von $a$ ändert also nichts an den gemeinsamen
+   Teilern. Es folgt $ggT(a,b) = ggT(b,a) = ggT(b, a - b) = ggT(b, a - b - b) =
+   \ldots = ggT(b, a - qb) = ggT(b,r)$.
+\end{proof}
+
+Es folgt also aus der zu zeigenden Aussage
+\begin{align*}
+   ggT(b,r) = xb + yr & = ggT(a,b) = ya + xb - qyb \\
+            yr & = ya - yqb \\
+            y [a]_b & = ya - yqb \\
+                    & = ya -y \floor*{\frac{a}{b}} b \\
+                    & = ya - y(a - [a]_b) \\
+                    & = ya - ya + y [a]_b \\
+                    & = y [a]_b
+\end{align*}
+Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
+
 \subsection{}
 
 
 \section{Merkle-Hellmann-Verfahren}
 
 \subsection{}
+
 Um $w^{-1}$ zu bestimmen, muss eEuklid mit $385$ und $17$ durchgeführt werden. Das
 Ergebnis ist dann $(d,x,y) = (1,-3,68)$. Wir überprüfen, ob es sich bei $68$
 tatsächlich um das multiplikative Inverse von $17$ in $\mathbb{Z}_{385}^*$ handelt.
@@ -242,9 +241,9 @@ Wir können so die Nachricht von Bob einfach verschlüsseln:
 \end{align*}
 
 \subsection{}
+
 Um die Nachricht zu entschlüsseln, müssen wir das folgende 
 \textsc{SubsetSum}-Problem lösen:
-
 \begin{align*}
   \textit{Dec}_{a,n}(c) &= \text{\textsc{SubsetSum}}\left(b, [c \cdot w^{-1}]_{n}\right) \\
                         &= \text{\textsc{SubsetSum}}\left(b, [17 \cdot 68]_{385}\right) \\
@@ -252,7 +251,6 @@ Um die Nachricht zu entschlüsseln, müssen wir das folgende
                         &= \text{\textsc{SubsetSum}}\left(b, [1156]_{385}\right) \\
                         &= \text{\textsc{SubsetSum}}\left(b, 208\right) \\
 \end{align*}
-
 Die fehlende Komponente $b$ können wir berechnen:
 \begin{align*}
   b &= [w^{-1} \cdot a]_{n} \\
@@ -261,7 +259,7 @@ Die fehlende Komponente $b$ können wir berechnen:
     &= (1, 24, 48, 3, 96, 6, 192, 12)
 \end{align*}
 
-Jetzt lösen wir das Problem:+
+Jetzt lösen wir das Problem:
 \begin{align*}
   \textit{Dec}_{a, n}(c) &= \text{\textsc{SubsetSum}}\left((1, 24, 48, 3, 96, 6, 192, 12), 208\right) \\
                          &= (1, 0, 0, 1, 0, 0, 1, 1)

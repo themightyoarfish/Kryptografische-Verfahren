@@ -160,7 +160,17 @@ Das können wir erneut geschickt berechnen:
 %\end{tabular}
 
 \subsection{}
+Um $w^{-1}$ zu bestimmen, muss eEuklid mit 385 und 17 durchgeführt werden. Das Ergebnis ist dann $(d,x,y) = (1,-3,68)$. Wir überprüfen, ob es sich bei 68 tatsächlich um das multiplikative Inverse von 17 in $\mathds{Z}_{385}^*$ handelt. \begin{align*}
+[17 \cdot 68]_{385} = [1156]_{385} = 1
+\end{align*}
 \subsection{}
+b = (289, 6, 12, 97, 24, 194, 48, 3)
+\begin{align*}
+Enc_{b,m}(x) & = [<b,x>]_m \\
+&= [<(289, 6, 12, 97, 24, 194, 48, 3),(1, 0, 1, 1, 1, 0, 1, 1)>]_{385} \\
+&= [(289, 0, 12, 97, 24, 0, 48, 3)]_{385} \\
+&= (289, 0, 12, 97, 24, 0, 48, 3)
+\end{align*}
 \subsection{}
 
 \end{document}

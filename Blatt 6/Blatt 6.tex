@@ -5,6 +5,8 @@
 \date{11. Dezember 2015}
 
 \newtheorem{theorem}{Theorem}
+\usepackage{amssymb}
+
 \begin{document}
 
 \maketitle
@@ -170,33 +172,50 @@ Es folgt also aus der zu zeigenden Aussage
 Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
 
 \section{Merkle-Hellmann-Verfahren}
+\begin{align*}
+  a         &= 23\\
+  b         &= 17\\
+  [a]_b     &\stackrel{?}{\neq} 0 \quad \checkmark \\
+  r         &=                 [23]_{17} = 6 \neq 0 \\
+  q         &=                 \lfloor \frac{23}{17} \rfloor = 1\\
+  (d, x, y) &=                 \textit{eEuklid}(17, 6) \\
+            &=                 (1, -1, 3) \\
+            &\Rightarrow       (d, y, x - qy) = (1, 3, -4)
+\end{align*}
 
-% Offensichtlich war das Verfahren in der VL anders als 
-% https://en.wikipedia.org/wiki/Merkle%E2%80%93Hellman_knapsack_cryptosystem#Mathematical_method
-% ergo ist das hier vermutlich Quatsch.
-%
-% n ergibt aber keinen Sinn, weil nach VL n > \sum{a} sein müsste - das ist 
-% nicht der Fall.
-%
-%a = (17, 23, 46, 51, 92, 102, 184, 204)
-%n = 385
-%w = 17
-%Da wir den public key, $n$ und $w$ kennen, können wir den (eigentlichen) 
-%private key $p = (k, n, w)$ wie folgt bestimmen:
-%
+% Müssten wir nicht eigentlich $(d, x, y) = \textit{eEuklid}(23, 17)$ berechnen?
+% Hab ich hier mal gemacht:
+
+%$\textit{eEuklid}(23, 17)$:
 %\begin{align*}
-         %a_i                         &= wk_i \mod n \\
-        %(a_i \mod n)^{-1} \mod n     &= wk_i \\
-  %\frac{(a_i \mod n)^{-1} \mod n}{w} &=  k_i
+  %d &= ggT(23, 17) = 1 \\
+  %\Rightarrow 1 &= 23x + 17y          
 %\end{align*}
 %
-%Es folgt:
+%Bestimmen von $x$ und $y$:
 %
-%\begin{tabular}{r|llllllll}
-  %$i$   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-  %$a_i$ & 17 & 23 & 46 & 51 & 92 & 102 & 184 & 204 \\
-  %$k_i$ &    &    &    &    &    &     &     &
-%\end{tabular}
+%\begin{center}
+  %\begin{tabular}{l|c|c|l}
+    %Iteration & $x$ & $y$ & $|23x - 17y| - 1$ \\\hline
+            %1 &  1  &  1  & $|23 - 17| - 1 =   5$ \\
+            %2 &  1  &  2  & $|23 - 34| - 1 =   8$ \\
+            %3 &  2  &  2  & $|46 - 34| - 1 =  11$ \\
+            %4 &  2  &  3  & $|46 - 51| - 1 =   4$ \\
+            %5 &  3  &  3  & $|69 - 51| - 1 =  17$ \\
+            %6 &  3  &  4  & $|69 - 68| - 1 =   0$ \\
+  %\end{tabular}
+%\end{center}
+%
+%Daraus folgt $x = 3$ und $y = -4$, wir überprüfen: 
+%$23 \cdot 3 - 17 \cdot 4 = 1$. Das bedeutet unser Ergebnis ist 
+%$\textit{eEuklid}(23, 17) = (1, 3, -4)$.
+
+\subsection{}
+
+\subsection{}
+
+
+\section{Merkle-Hellmann-Verfahren}
 
 \subsection{}
 Um $w^{-1}$ zu bestimmen, muss eEuklid mit $385$ und $17$ durchgeführt werden. Das
@@ -209,15 +228,45 @@ tatsächlich um das multiplikative Inverse von $17$ in $\mathbb{Z}_{385}^*$ hand
 
 \subsection{}
 
-$b = (289, 6, 12, 97, 24, 194, 48, 3)$
+Als öffentlichen Schlüssel haben wir gegeben 
+$a = (17, 23, 46, 51, 92, 102, 184, 204)$ und $n = 385$.
+
+Wir können so die Nachricht von Bob einfach verschlüsseln:
 
 \begin{align*}
-   Enc_{b,m}(x)  & = [<b,x>]_m                                                            \\
-                 & =  [<(289, 6, 12, 97, 24, 194, 48, 3),(1, 0, 1, 1, 1, 0, 1, 1)>]_{385} \\
-                 & =  [(289, 0, 12, 97, 24, 0, 48, 3)]_{385}                              \\
-                 & =  (289, 0, 12, 97, 24, 0, 48, 3)
+  \textit{Enc}_{a,n}(m) &= [<a, m>]_n\\
+   &= [<(17, 23, 46, 51, 92, 102, 184, 204), (1, 0, 1, 1, 1, 0, 1, 1)>]_{385} \\
+   &= [17 + 46 + 51 + 92 + 184 + 204]_{385} \\
+   &= [594]_{385} \\
+   &= 209
 \end{align*}
 
 \subsection{}
+Um die Nachricht zu entschlüsseln, müssen wir das folgende 
+\textsc{SubsetSum}-Problem lösen:
+
+\begin{align*}
+  \textit{Dec}_{a,n}(c) &= \text{\textsc{SubsetSum}}\left(b, [c \cdot w^{-1}]_{n}\right) \\
+                        &= \text{\textsc{SubsetSum}}\left(b, [17 \cdot 68]_{385}\right) \\
+                        &= \text{\textsc{SubsetSum}}\left(b, [17 \cdot 68]_{385}\right) \\
+                        &= \text{\textsc{SubsetSum}}\left(b, [1156]_{385}\right) \\
+                        &= \text{\textsc{SubsetSum}}\left(b, 208\right) \\
+\end{align*}
+
+Die fehlende Komponente $b$ können wir berechnen:
+\begin{align*}
+  b &= [w^{-1} \cdot a]_{n} \\
+    &= \left[68 (17, 23, 46, 51, 92, 102, 184, 204)\right]_{385} \\
+    &= \left[(1156, 1564, 3128, 3468, 6256, 6936, 12512, 13872)\right]_{385} \\
+    &= (1, 24, 48, 3, 96, 6, 192, 12)
+\end{align*}
+
+Jetzt lösen wir das Problem:+
+\begin{align*}
+  \textit{Dec}_{a, n}(c) &= \text{\textsc{SubsetSum}}\left((1, 24, 48, 3, 96, 6, 192, 12), 208\right) \\
+                         &= (1, 0, 0, 1, 0, 0, 1, 1)
+\end{align*}
+
+Damit ist die Lösung $m = 10010011$.
 
 \end{document}

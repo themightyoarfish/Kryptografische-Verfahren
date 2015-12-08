@@ -1,0 +1,166 @@
+\documentclass{../crypto}
+\sheet{6}
+\date{11. Dezember 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Exponentiation von Hand}
+
+\subsection{}
+\begin{align*}
+  \left[3^{1000}\right]_{100} &= \left[3^{512+256+128+64+32+8}\right]_{100} \\
+                              &= \left[\left[\left[\left[\left[\left[3^{512}\right]_{100} 
+                              \cdot 3^{256}\right]_{100}
+                              \cdot 3^{128}\right]_{100}
+                              \cdot 3^{64}\right]_{100}
+                              \cdot 3^{32}\right]_{100}
+                              \cdot 3^{8}\right]_{100} \\
+                              &= \left[\left[\left[\left[\left[41 \cdot 21\right]_{100}
+                              \cdot 61\right]_{100}
+                              \cdot 81\right]_{100}
+                              \cdot 41\right]_{100}
+                              \cdot 61\right]_{100} \\
+                              &= \left[\left[\left[\left[1 \cdot 61\right]_{100}
+                              \cdot 81\right]_{100}
+                              \cdot 41\right]_{100}
+                              \cdot 61\right]_{100} \\
+                              &= \left[\left[\left[61 \cdot 81\right]_{100}
+                              \cdot 41\right]_{100}
+                              \cdot 61\right]_{100} \\
+                              &= \left[\left[41 \cdot 41\right]_{100}
+                              \cdot 61\right]_{100} \\
+                              &= \left[81 \cdot 61\right]_{100} \\
+                              &= 41
+\end{align*}
+
+\textbf{Nebenrechnungen:}
+\begin{align*}
+  \left[3^{1}\right]_{100} &= 3 \\
+  \left[3^{2}\right]_{100} &= 9 \\
+  \left[3^{4}\right]_{100} &= \left[3^{2+2}\right]_{100} 
+                            = \left[\left[3^{2}\right]_{100} \cdot 3^{1}\right]_{100} 
+                            = \left[9 \cdot 3^{2}\right]_{100} = 81 \\
+  \left[3^{8}\right]_{100} &= \left[3^{4+4}\right]_{100}
+                            = \left[81 \cdot 3^{4}\right]_{100} = 
+                            = \left[6561\right]_{100} = 61 \\
+  \left[3^{16}\right]_{100} &= \left[3^{8+8}\right]_{100}
+                             = \left[3721\right]_{100} = 21 \\
+  \left[3^{32}\right]_{100} &= \left[441\right]_{100} = 41 \\
+  \left[3^{64}\right]_{100} &= \left[441\right]_{100} = 81 \\
+  \left[3^{128}\right]_{100} &= 61 \\
+  \left[3^{256}\right]_{100} &= 21 \\
+  \left[3^{512}\right]_{100} &= 41 \\
+  \left[3^{1024}\right]_{100} &= 81 \\
+                              &\vdots
+\end{align*}
+Wir beobachten die Periode $81, 61, 21, 41, \dots$, die wir uns zu Nutzen machen können.
+
+\subsection{}
+\begin{align*}
+  \left[101^{4800000002}\right]_{35} &= \left[ \left[16^5\right]_{35} 
+                                         \cdot \left[11^6\right]_{35}
+                                        \right]_{35} \\
+                                     &= \left[11^7\right]_{35} \\
+                                     &= 11
+\end{align*}
+
+\textbf{Nebenrechnungen:}
+\begin{align*}
+  \left[101^{1}\right]_{35} &= 31 \\
+  \left[101^{2}\right]_{35} &= 16 \\
+  \left[101^{4}\right]_{35} &= 11 \\
+  \left[101^{8}\right]_{35} &= 16 \\
+  \left[101^{16}\right]_{35} &= 11 \\
+                             &\vdots
+\end{align*}
+Wir beobachten, dass jede zweite dieser Potenzen (also $2, 8, 32, \dots$) einen
+Rest von $16$ hat, alle anderen (mit Ausnahme von $1$) den Rest von $11$.
+Mit diesem Wissen können wir mit der Binärdarstellung ein einfachem Zählen zu 
+herausfinden, wie oft wir $11$ bzw. $16$ multiplizieren müssen, um auf das 
+Ergebnis zu kommen:
+
+\begin{align*}4800000002_{10} = 100011110000110100011000000000010_2\end{align*}
+
+Wir finden fünf Potenzen deren Rest $16$ ist und sechs Potenzen deren Rest $11$ 
+ist. Es folgt:
+
+\begin{align*}
+  \left[101^{4800000002}\right]_{35} &= \left[ \left[16^5\right]_{35} 
+                                         \cdot \left[11^6\right]_{35}
+                                        \right]_{35}
+\end{align*}
+
+Wir können nun zunächst $\left[16^5\right]_{35}$ geschickt berechnen:
+
+\begin{align*}
+  \left[16^5\right]_{35} &= \left[16^{2+2+1}\right]_{35} \\
+                         &= \left[16 \cdot 11 \cdot 11\right]_{35} \\
+                         &= 11 \\
+\end{align*}
+
+Wir stellen fest, dass wir diese Erkenntnis widerum in unsere Gleichung 
+einsetzen können und erhalten:
+
+\begin{align*}
+  \left[ \left[16^5\right]_{35} \cdot \left[11^6\right]_{35} \right]_{35} 
+                    &= \left[11 \cdot \left[11^6\right]_{35} \right]_{35} \\
+                    &= \left[11^7\right]_{35}
+\end{align*}
+
+Das können wir erneut geschickt berechnen:
+\begin{align*}
+  \left[11^{7}\right]_{35} &= \left[11^{4+2+1}\right]_{35} \\
+                           &= \left[11 \cdot 16 \cdot 11\right]_{35} \\
+                           &= \left[1936\right]_{35} \\
+                           &= 11
+\end{align*}
+  
+\emph{Nebenrechnung:}
+\begin{align*}
+  \left[11^{1}\right]_{35} &= 11 \\
+  \left[11^{2}\right]_{35} &= 16 \\
+  \left[11^{4}\right]_{35} &= 11
+\end{align*}
+
+\section{Erweiterter Euklidischer Algorithmus}
+
+\subsection{}
+\subsection{}
+\subsection{}
+
+\section{Merkle-Hellmann-Verfahren}
+
+% Offensichtlich war das Verfahren in der VL anders als 
+% https://en.wikipedia.org/wiki/Merkle%E2%80%93Hellman_knapsack_cryptosystem#Mathematical_method
+% ergo ist das hier vermutlich Quatsch.
+%
+% n ergibt aber keinen Sinn, weil nach VL n > \sum{a} sein müsste - das ist 
+% nicht der Fall.
+%
+%a = (17, 23, 46, 51, 92, 102, 184, 204)
+%n = 385
+%w = 17
+%Da wir den public key, $n$ und $w$ kennen, können wir den (eigentlichen) 
+%private key $p = (k, n, w)$ wie folgt bestimmen:
+%
+%\begin{align*}
+         %a_i                         &= wk_i \mod n \\
+        %(a_i \mod n)^{-1} \mod n     &= wk_i \\
+  %\frac{(a_i \mod n)^{-1} \mod n}{w} &=  k_i
+%\end{align*}
+%
+%Es folgt:
+%
+%\begin{tabular}{r|llllllll}
+  %$i$   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+  %$a_i$ & 17 & 23 & 46 & 51 & 92 & 102 & 184 & 204 \\
+  %$k_i$ &    &    &    &    &    &     &     &
+%\end{tabular}
+
+\subsection{}
+\subsection{}
+\subsection{}
+
+\end{document}

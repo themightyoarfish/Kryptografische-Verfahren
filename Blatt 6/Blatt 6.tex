@@ -1,7 +1,10 @@
 \documentclass{../crypto}
+\usepackage{amsthm} 
+\usepackage{mathtools}
 \sheet{6}
 \date{11. Dezember 2015}
 
+\newtheorem{theorem}{Theorem}
 \begin{document}
 
 \maketitle
@@ -128,6 +131,43 @@ Das können wir erneut geschickt berechnen:
 \subsection{}
 \subsection{}
 \subsection{}
+
+Wir zeigen zunächst Folgendes:
+
+\begin{theorem}
+Falls $a = \floor*{\frac{a}{b}} + [a]_b = qb + r$, dann
+   ist $ggt(a,b) = ggt(b,r)$
+\end{theorem}
+\begin{proof}
+   Sei $d=ggT(a,b)$, also gilt
+   \begin{align*}
+      a & = dn \\
+      b & = dm \\
+      \intertext{Und daher}
+      a - b & = dn - dm  = d(n-m) = dl
+   \end{align*}
+   Also is $d$ Teiler von $a$ sowie von $a-b$. Alle gemeinsamen Teiler von $a$
+   und $b$ sind also Teiler von $a-b$. Deshalb gilt
+   \begin{align*}
+      b & = a - (a - b) = dn - dl = d(n - l) = dk
+   \end{align*}
+   und alle gemeinsamen Teiler von $a$ und $a-b$ sind Teiler von $b$. Die
+   wiederholte Subtraktion von $b$ von $a$ ändert also nichts an den gemeinsamen
+   Teilern. Es folgt $ggT(a,b) = ggT(b,a) = ggT(b, a - b) = ggT(b, a - b - b) =
+   \ldots = ggT(b, a - qb) = ggT(b,r)$.
+\end{proof}
+
+Es folgt also aus der zu zeigenden Aussage
+\begin{align*}
+   ggT(b,r) = xb + yr & = ggT(a,b) = ya + xb - qyb \\
+            yr & = ya - yqb \\
+            y [a]_b & = ya - yqb \\
+                    & = ya -y \floor*{\frac{a}{b}} b \\
+                    & = ya - y(a - [a]_b) \\
+                    & = ya - ya + y [a]_b \\
+                    & = y [a]_b
+\end{align*}
+Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
 
 \section{Merkle-Hellmann-Verfahren}
 

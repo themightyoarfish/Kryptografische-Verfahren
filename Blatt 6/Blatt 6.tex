@@ -15,68 +15,66 @@
 
 \subsection{}
 \begin{align*}
-  \left[3^{1000}\right]_{100} &= \left[3^{512+256+128+64+32+8}\right]_{100} \\
-                              &= \left[\left[\left[\left[\left[\left[3^{512}\right]_{100} 
+  \left[3^{1000}\right]_{100}                             & = \left[3^{512+256+128+64+32+8}\right]_{100}               \\
+                                                          & = \left[\left[\left[\left[\left[\left[3^{512}\right]_{100}
                               \cdot 3^{256}\right]_{100}
                               \cdot 3^{128}\right]_{100}
                               \cdot 3^{64}\right]_{100}
                               \cdot 3^{32}\right]_{100}
-                              \cdot 3^{8}\right]_{100} \\
-                              &= \left[\left[\left[\left[\left[41 \cdot 21\right]_{100}
+                              \cdot 3^{8}\right]_{100}                                                                 \\
+                                                          & = \left[\left[\left[\left[\left[41 \cdot 21\right]_{100}
                               \cdot 61\right]_{100}
                               \cdot 81\right]_{100}
                               \cdot 41\right]_{100}
-                              \cdot 61\right]_{100} \\
-                              &= \left[\left[\left[\left[61 \cdot 61\right]_{100}
+                              \cdot 61\right]_{100}                                                                    \\
+                                                          & = \left[\left[\left[\left[61 \cdot 61\right]_{100}
                               \cdot 81\right]_{100}
                               \cdot 41\right]_{100}
-                              \cdot 61\right]_{100} \\
-                              &= \left[\left[\left[21 \cdot 81\right]_{100}
+                              \cdot 61\right]_{100}                                                                    \\
+                                                          & = \left[\left[\left[21 \cdot 81\right]_{100}
                               \cdot 41\right]_{100}
-                              \cdot 61\right]_{100} \\
-                              &= \left[\left[1 \cdot 41\right]_{100}
-                              \cdot 61\right]_{100} \\
-                              &= \left[41 \cdot 61\right]_{100} \\
-                              &= 1
+                              \cdot 61\right]_{100}                                                                    \\
+                                                          & = \left[\left[1 \cdot 41\right]_{100}
+                              \cdot 61\right]_{100}                                                                    \\
+                                                          & = \left[41 \cdot 61\right]_{100}                           \\
+                                                          & = 1
 \end{align*}
 
 \textbf{Nebenrechnungen:}
 \begin{align*}
-  \left[3^{1}\right]_{100} &= 3 \\
-  \left[3^{2}\right]_{100} &= 9 \\
-  \left[3^{4}\right]_{100} &= \left[3^{2+2}\right]_{100} 
-                            = \left[\left[3^{2}\right]_{100} \cdot 3^{2}\right]_{100} 
-                            = \left[9 \cdot 3^{2}\right]_{100} = 81 \\
-  \left[3^{8}\right]_{100} &= \left[3^{4+4}\right]_{100}
-                            = \left[81 \cdot 3^{4}\right]_{100} 
-                            = \left[6561\right]_{100} = 61 \\
-  \left[3^{16}\right]_{100} &= \left[3^{8+8}\right]_{100}
-                             = \left[3721\right]_{100} = 21 \\
-  \left[3^{32}\right]_{100} &= \left[441\right]_{100} = 41 \\
-  \left[3^{64}\right]_{100} &= \left[1681\right]_{100} = 81 \\
-  \left[3^{128}\right]_{100} &= 61 \\
-  \left[3^{256}\right]_{100} &= 21 \\
-  \left[3^{512}\right]_{100} &= 41 \\
-  \left[3^{1024}\right]_{100} &= 81 \\
-                              &\vdots
+  \left[3^{1}\right]_{100}                                                            & = 3                            \\
+  \left[3^{2}\right]_{100}                                                            & = 9                            \\
+  \left[3^{4}\right]_{100}                                                            & = \left[3^{2+2}\right]_{100}
+                            = \left[\left[3^{2}\right]_{100} \cdot 3^{2}\right]_{100}
+                            = \left[9 \cdot 3^{2}\right]_{100} = 81                                                    \\
+  \left[3^{8}\right]_{100}                                                            & = \left[3^{4+4}\right]_{100}
+                            = \left[81 \cdot 3^{4}\right]_{100}
+                            = \left[6561\right]_{100} = 61                                                             \\
+  \left[3^{16}\right]_{100}                                                           & = \left[3^{8+8}\right]_{100}
+                             = \left[3721\right]_{100} = 21                                                            \\
+  \left[3^{32}\right]_{100}                                                           & = \left[441\right]_{100} = 41  \\
+  \left[3^{64}\right]_{100}                                                           & = \left[1681\right]_{100} = 81 \\
+  \left[3^{128}\right]_{100}                                                          & = 61                           \\
+  \left[3^{256}\right]_{100}                                                          & = 21                           \\
+  \left[3^{512}\right]_{100}                                                          & = 41                           \\
+  \left[3^{1024}\right]_{100}                                                         & = 81                           \\
+                                                                                      & \vdots
 \end{align*}
 Wir beobachten die Periode $81, 61, 21, 41, \dots$, die wir uns zu Nutze machen können.
 
 \subsection{}
 \begin{align*}
-  \left[101^{4800000002}\right]_{35} &= \left[ \left[16^6\right]_{35} 
-                                         \cdot \left[11^5\right]_{35}
-                                        \right]_{35} \\
-                                     &= \left[11^5\right]_{35} \\
-                                     &= 16
+  \left[101^{4800000002}\right]_{35} & = \left[ \left[16^6\right]_{35} \cdot \left[11^5\right]_{35} \right]_{35} \\
+                                     & = \left[11^5\right]_{35}                                                  \\
+                                     & = 16
 \end{align*}
 
 \textbf{Nebenrechnungen:}
 \begin{align*}
-  \left[101^{1}\right]_{35} &= 31 \\
-  \left[101^{2}\right]_{35} &= 16 \\
-  \left[101^{4}\right]_{35} &= 11 \\
-  \left[101^{8}\right]_{35} &= 16 \\
+  \left[101^{1}\right]_{35} &= 31  \\
+  \left[101^{2}\right]_{35} &= 16  \\
+  \left[101^{4}\right]_{35} &= 11  \\
+  \left[101^{8}\right]_{35} &= 16  \\
   \left[101^{16}\right]_{35} &= 11 \\
                              &\vdots
 \end{align*}
@@ -86,39 +84,38 @@ Mit diesem Wissen können wir mit der Binärdarstellung und einfachem Zählen
 herausfinden, wie oft wir $11$ bzw. $16$ multiplizieren müssen, um auf das 
 Ergebnis zu kommen:
 
-\begin{align*}4800000002_{10} = 1 00 01 11 10 00 01 10 10 00 11 00 00 00 00 00 10_2\end{align*}
+\begin{align*}
+   4800000002_{10} = 1 00 01 11 10 00 01 10 10 00 11 00 00 00 00 00 10_2
+\end{align*}
 
-Wir finden sechs Potenzen deren Rest $16$ ist und fünf Potenzen deren Rest $11$ 
+Wir finden sechs Potenzen, deren Rest $16$ ist und fünf Potenzen deren Rest $11$ 
 ist. Es folgt:
 
 \begin{align*}
-  \left[101^{4800000002}\right]_{35} &= \left[ \left[16^6\right]_{35} 
-                                         \cdot \left[11^5\right]_{35}
-                                        \right]_{35}
+  \left[101^{4800000002}\right]_{35} &= \left[ \left[16^6\right]_{35} \cdot \left[11^5\right]_{35} \right]_{35}
 \end{align*}
 
 Wir können nun zunächst $\left[16^6\right]_{35}$ geschickt berechnen:
 
 \begin{align*}
-  \left[16^6\right]_{35} &= \left[16^{2+2+2}\right]_{35} \\
-                         &= \left[11 \cdot 11 \cdot 11\right]_{35} \\
-                         &= 1 \\
+  \left[16^6\right]_{35}  & = \left[16^{2+2+2}\right]_{35}           \\
+                          & = \left[11 \cdot 11 \cdot 11\right]_{35} \\
+                          & = 1                                      \\
 \end{align*}
 
 Wir stellen fest, dass wir diese Erkenntnis wiederum in unsere Gleichung 
 einsetzen können und erhalten:
 
 \begin{align*}
-  \left[ \left[16^6\right]_{35} \cdot \left[11^5\right]_{35} \right]_{35} 
-                    &= \left[1 \cdot \left[11^5\right]_{35} \right]_{35} \\
-                    &= \left[11^5\right]_{35}
+  \left[ \left[16^6\right]_{35} \cdot \left[11^5\right]_{35} \right]_{35} & = \left[1 \cdot \left[11^5\right]_{35} \right]_{35} \\
+                                                                          & = \left[11^5\right]_{35}
 \end{align*}
 
 Das können wir erneut geschickt berechnen:
 \begin{align*}
-  \left[11^{5}\right]_{35} &= \left[11^{4+1}\right]_{35} \\
-                           &= \left[11 \cdot 11\right]_{35} \\
-                           &= 16
+  \left[11^{5}\right]_{35}  & = \left[11^{4+1}\right]_{35}    \\
+                            & = \left[11 \cdot 11\right]_{35} \\
+                            & = 16
 \end{align*}
   
 \emph{Nebenrechnung:}
@@ -134,20 +131,20 @@ Das können wir erneut geschickt berechnen:
 \subsection{}
 
 \begin{align*}
-  a         &= 23\\
-  b         &= 17\\
-  [a]_b     &\stackrel{?}{\neq} 0 \quad \checkmark \\
-  r         &=                 [23]_{17} = 6 \neq 0 \\
-  q         &=                 \lfloor \frac{23}{17} \rfloor = 1\\
-  (d, x, y) &=                 \textit{eEuklid}(17, 6) \\
-            &=                 (1, -1, 3) \\
-            &\Rightarrow       (d, y, x - qy) = (1, 3, -4)
+  a          & = 23                                                \\
+  b          & = 17                                                \\
+  [a]_b      & \stackrel{?}{\neq} 0 \quad \checkmark               \\
+  r          & =                 [23]_{17} = 6 \neq 0              \\
+  q          & =                 \lfloor \frac{23}{17} \rfloor = 1 \\
+  (d, x, y)  & =                 \textit{$eEuklid$}(17, 6)         \\
+             & =                 (1, -1, 3)                        \\
+             & \Rightarrow       (d, y, x - qy) = (1, 3, -4)
 \end{align*}
 
-% Müssten wir nicht eigentlich $(d, x, y) = \textit{eEuklid}(23, 17)$ berechnen?
+% Müssten wir nicht eigentlich $(d, x, y) = \textit{$eEuklid$}(23, 17)$ berechnen?
 % Hab ich hier mal gemacht:
 
-%$\textit{eEuklid}(23, 17)$:
+%$\textit{$eEuklid$}(23, 17)$:
 %\begin{align*}
   %d &= ggT(23, 17) = 1 \\
   %\Rightarrow 1 &= 23x + 17y          
@@ -169,7 +166,7 @@ Das können wir erneut geschickt berechnen:
 %
 %Daraus folgt $x = 3$ und $y = -4$, wir überprüfen: 
 %$23 \cdot 3 - 17 \cdot 4 = 1$. Das bedeutet unser Ergebnis ist 
-%$\textit{eEuklid}(23, 17) = (1, 3, -4)$.
+%$\textit{$eEuklid$}(23, 17) = (1, 3, -4)$.
 
 \subsection{}
 
@@ -200,26 +197,31 @@ Falls $a = \floor*{\frac{a}{b}}b + [a]_b = qb + r$, dann
 
 Es folgt also aus der zu zeigenden Aussage
 \begin{align*}
-   ggT(b,r) = xb + yr & = ggT(a,b) = ya + xb - qyb \\
-            yr & = ya - yqb \\
-            y [a]_b & = ya - yqb \\
-                    & = ya -y \floor*{\frac{a}{b}} b \\
-                    & = ya - y(a - [a]_b) \\
-                    & = ya - ya + y [a]_b \\
-                    & = y [a]_b
+   ggT(b,r) = xb + yr & = ggT(a,b) = ya + xb - qyb     \\
+            yr        & = ya - yqb                     \\
+            y [a]_b   & = ya - yqb                     \\
+                      & = ya -y \floor*{\frac{a}{b}} b \\
+                      & = ya - y(a - [a]_b)            \\
+                      & = ya - ya + y [a]_b            \\
+                      & = y [a]_b
 \end{align*}
 Da aus der Aussage eine Tautologie folgt, muss sie stimmen.
 
 \subsection{}
 
+Die Korrektheit ist nach \textbf{b)} trivial. Im zweiten Schritt berechnet der
+Algorithmus $(d,x,y) = eEuklid(b,r)$. Nach dem eben Gezeigten ist $d = d^\prime$
+mit $(d^\prime, x^\prime,y^\prime) = eEuklid(b,r)$. Im dritten Schritt gibt der
+Algorithmus neben dem $ggT$ die beiden Faktoren $y$ und $x-qy$ zurück. Nach
+Theorem $1$ sind dies die richtigen Faktoren für $ggT(a,b)$.
 
 \section{Merkle-Hellmann-Verfahren}
 
 \subsection{}
 
-Um $w^{-1}$ zu bestimmen, muss eEuklid mit $385$ und $17$ durchgeführt werden. Das
+Um $w^{-1}$ zu bestimmen, muss $eEuklid$ mit $385$ und $17$ durchgeführt werden. Das
 Ergebnis ist dann $(d,x,y) = (1,-3,68)$. Wir überprüfen, ob es sich bei $68$
-tatsächlich um das multiplikative Inverse von $17$ in $\mathbb{Z}_{385}^*$ handelt.
+tatsächlich um das multiplikativ Inverse von $17$ in $\mathbb{Z}_{385}^*$ handelt.
 
 \begin{align*}
    [17 \cdot 68]_{385} = [1156]_{385} = 1
@@ -233,11 +235,11 @@ $a = (17, 23, 46, 51, 92, 102, 184, 204)$ und $n = 385$.
 Wir können so die Nachricht von Bob einfach verschlüsseln:
 
 \begin{align*}
-  \textit{Enc}_{a,n}(m) &= [<a, m>]_n\\
-   &= [<(17, 23, 46, 51, 92, 102, 184, 204), (1, 0, 1, 1, 1, 0, 1, 1)>]_{385} \\
-   &= [17 + 46 + 51 + 92 + 184 + 204]_{385} \\
-   &= [594]_{385} \\
-   &= 209
+  \textit{Enc}_{a,n}(m) & = [<a, m>]_n                                                              \\
+                        & = [<(17, 23, 46, 51, 92, 102, 184, 204), (1, 0, 1, 1, 1, 0, 1, 1)>]_{385} \\
+                        & = [17 + 46 + 51 + 92 + 184 + 204]_{385}                                   \\
+                        & = [594]_{385}                                                             \\
+                        & = 209
 \end{align*}
 
 \subsection{}
@@ -245,23 +247,23 @@ Wir können so die Nachricht von Bob einfach verschlüsseln:
 Um die Nachricht zu entschlüsseln, müssen wir das folgende 
 \textsc{SubsetSum}-Problem lösen:
 \begin{align*}
-  \textit{Dec}_{a,n}(c) &= \text{\textsc{SubsetSum}}\left(b, [c \cdot w^{-1}]_{n}\right) \\
-                        &= \text{\textsc{SubsetSum}}\left(b, [17 \cdot 68]_{385}\right) \\
-                        &= \text{\textsc{SubsetSum}}\left(b, [1156]_{385}\right) \\
-                        &= \text{\textsc{SubsetSum}}\left(b, 208\right) \\
+  \textit{Dec}_{a,n}(c)  & = \text{\textsc{SubsetSum}}\left(b, [c \cdot w^{-1}]_{n}\right) \\
+                         & = \text{\textsc{SubsetSum}}\left(b, [17 \cdot 68]_{385}\right)  \\
+                         & = \text{\textsc{SubsetSum}}\left(b, [1156]_{385}\right)         \\
+                         & = \text{\textsc{SubsetSum}}\left(b, 208\right)                  \\
 \end{align*}
 Die fehlende Komponente $b$ können wir berechnen:
 \begin{align*}
-  b &= [w^{-1} \cdot a]_{n} \\
-    &= \left[68 (17, 23, 46, 51, 92, 102, 184, 204)\right]_{385} \\
-    &= \left[(1156, 1564, 3128, 3468, 6256, 6936, 12512, 13872)\right]_{385} \\
-    &= (1, 24, 48, 3, 96, 6, 192, 12)
+  b  & = [w^{-1} \cdot a]_{n}                                                  \\
+     & = \left[68 (17, 23, 46, 51, 92, 102, 184, 204)\right]_{385}             \\
+     & = \left[(1156, 1564, 3128, 3468, 6256, 6936, 12512, 13872)\right]_{385} \\
+     & = (1, 24, 48, 3, 96, 6, 192, 12)
 \end{align*}
 
 Jetzt lösen wir das Problem:
 \begin{align*}
-  \textit{Dec}_{a, n}(c) &= \text{\textsc{SubsetSum}}\left((1, 24, 48, 3, 96, 6, 192, 12), 208\right) \\
-                         &= (1, 0, 0, 1, 0, 0, 1, 1)
+  \textit{Dec}_{a, n}(c)  & = \text{\textsc{SubsetSum}}\left((1, 24, 48, 3, 96, 6, 192, 12), 208\right) \\
+                          & = (1, 0, 0, 1, 0, 0, 1, 1)
 \end{align*}
 
 Damit ist die Lösung $m = 10010011$.

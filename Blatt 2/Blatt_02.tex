@@ -1,0 +1,143 @@
+\documentclass{../crypto}
+\sheet{2}
+\date{30. Oktober 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Multiplikation von Resten}
+
+\subsection{}
+
+\begin{align*}
+   \left[km\right]_n - \left[km^\prime\right]_n & = 0 \\
+   k\odot_n m - k \odot_n m^\prime            & = 0 \\
+   \left[km - km^\prime\right]_n              & = 0 \\
+   \left[k\cdot(m - m^\prime)\right]_n        & = 0 \\
+   k \odot_n (m - m^\prime)                   & = 0
+\end{align*}
+
+Das bedutet, dass $n$ $k \odot_n (m - m^\prime)$ teilt. Nach Vorraussetzung
+sind $n$ und $k$ teilerfremd, sodass $n$ stattdessen $(m - m^\prime)$ teilen
+muss. Da $m,m^\prime \in \mathbb{Z}_n$, kann $\left[m - m^\prime\right]_n = 0$ nur
+gelten, falls $m = m^\prime$.
+
+\hfill$\Box$
+
+
+\subsection{}
+
+Für die Injektivität ist Folgendes zu zeigen.
+\begin{equation*}
+   E_k(m_1) = E_k(m_2) \Rightarrow m_1 = m_2
+\end{equation*}
+
+\begin{IEEEeqnarray*}{rCl}
+   \left[m_1k + l\right]_n                         & = & \left[m_2k + l\right]_n \\
+   \left[m_1k\right]_n \oplus_n \left[l\right]_n   & = & \left[m_2k\right]_n \oplus_n \left[l\right]_n \\
+   \left[m_1k\right]_n \oplus_n l \oplus_n (n - l) & = & \left[m_2k\right]_n \oplus_n l \oplus_n (n - l)\\
+   \left[m_1k\right]_n                             & = & \left[m_2k\right]_n \\
+\end{IEEEeqnarray*}
+
+Nach Teilaufgabe a) folgt hieraus $m_1 = m_2$.
+\hfill$\Box$
+
+\section{Die Wahrscheinlichkeit von Kryptotexten in perfekt sicheren Kryptosystemen}
+
+Sei $Y$ die Zufallsvariable über den möglichen Kryptotexten $y\in\mathcal{C}$.
+Sei mit $\mathcal{C}(k) = \{c\in \mathcal{C} \mid \exists x\in \mathcal{M} :
+E_k(x) = c\}$ die Menge der durch einen Schlüssel $k$ in Abhängigkeit
+des Klartextes erzeugbaren Kryptotexte bezeichnet.
+Für die Wahrscheinlichkeit, einen bestimmten Kryptotext zu erhalten, gilt 
+\begin{align*}
+   P(Y=y)             & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k, E_k(x) = y) \\
+   P(Y=y)             & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k, X = E_k^{-1}(y)) \\
+                      & = \sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} P(K=k) ~ P(X = E_k^{-1}(y)) & \text{Schlüssel und Klartext unabhängig}\\
+                      & = \frac{1}{|\mathcal{K}|}\sum\limits_{\{k \mid y\in\mathcal{C}(k)\}}
+   P(X = E_k^{-1}(y)) & \text{Schlüssel gleichverteilt}\\
+   \intertext{Da das System perfekt sicher ist, $E_k$ injektiv sowie
+   $|\mathcal{C}|=|\mathcal{M}|$, gibt es für jedes
+$(x,y)\in\mathcal{M}\times\mathcal{C}$ genau ein $k$ mit $E_k(x)=y$.} \\
+                      &= \frac{1}{|\mathcal{K}|}\sum\limits_{\{k \mid y\in\mathcal{C}(k)\}} \frac{1}{|\mathcal{K}|} \\
+   \intertext{Da $E_k$ injektiv ist, muss jedes $k$ auf
+      $|\mathcal{M}|=|\mathcal{C}|$ verschiedene Kryptotexte abbilden. Dies
+      bedeutet aber auch, dass jeder Kryptotext $c\in\mathcal{C}$ durch jedes
+      $k\in\mathcal{K}$ generiert werden kann. Die obige Summe iteriert folglich
+      über komplett $\mathcal{K}$, somit
+   }
+               P(Y=y) &= \frac{1}{|\mathcal{K}|}\cdot 1 \\
+\end{align*}
+\hfill$\Box$
+
+\section{Eine Weitere Formel für die a-posteriori-Wahrscheinlichkeit}
+
+Die Wahrscheinlichkeit des Ereignisses, einen bestimmten Kryptotext zu erhalten,
+ergibt sich aus der Wahrscheinlichkeit, irgendeinen Klartext und gleichzeitig
+einen ihn in den gegebenen Kryptotext überführenden Schlüssel zu erhalten. Es
+kann mehrere solcher Kombinationen geben.
+\begin{align*}
+   P(C=c) &= \sum\limits_{m\in\mathcal{M}} \sum\limits_{k\in\mathcal{K}_{m,c}}P(M=m \cap K=k) \\
+          &= \sum\limits_{m\in\mathcal{M}} \sum\limits_{k\in\mathcal{K}_{m,c}}P(M=m)\cdot(K=k) & \text{Schlüssel \& Klartext unabhängig} \\
+          &= \sum\limits_{m\in\mathcal{M}} P(M=m) \sum\limits_{k\in\mathcal{K}_{m,c}}(K=k) \\
+          &= \sum\limits_{m\in\mathcal{M}} P(M=m)\cdot P(\mathcal{K}_{m,c})
+\end{align*}
+
+Damit gilt 
+\begin{align*}
+   P(M=m \mid C=c) &= \frac{P(M=m \cap C=c)}{P(C=c)} \\
+                   &= \frac{P(M=m)\cdot
+P(\mathcal{K}_{m,c})}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot
+P(\mathcal{K}_{m',c})} & \text{Siehe VL, Folie 5.33}
+\end{align*}
+
+\hfill$\Box$
+
+\section{Die Affine Verschlüsselung}
+
+\subsection{}
+
+\begin{align*}
+E_{(k,l)}(m)&=\left[km+l\right]_{26}\\
+c&=\left[km+l\right]_{26}\\
+c&=\left[\left[km\right]_{26} + l\right]_{26}\\
+\left[c - l\right]_{26}&=\left[km\right]_{26}
+\end{align*}
+Da $l \in \mathbb{Z}_{26}$ können wir $l$ als eine arbiträre Verschiebung ansehen
+und somit auslassen, d.h. wenn wir eine Lösung für
+$\left[c\right]_{26}=\left[km\right]_{26}$ finden, gibt es auch genau eine
+passende Lösung für $\left[c - l\right]_{26}=\left[km\right]_{26}$.
+
+Das bedeutet auch, dass $c$ und $km$ kongruent modulo $n$ sind.
+% siehe
+% https://de.wikipedia.org/wiki/Kongruenz_(Zahlentheorie)#L.C3.B6sbarkeit_von_linearen_Kongruenzen
+Das wiederum bedeutet, dass $\left[c\right]_{26}=\left[km\right]_{26}$ genau
+dann lösbar ist, wenn $ggT(k,n)$ $c$ teilt. Weil $ggT(k,n)=1$ gegeben ist, und
+$\frac{c}{1}=c$ ist, ist somit die Gleichung lösbar -- genauer noch: Sie hat
+genau $ggT(k,n)$ viele Lösungen.
+
+Sie ist damit eindeutig lösbar in $m$, was im Umkehrschluss aber auch bedeutet,
+dass es für jedes Paar $(m,c)$ genau eine Lösung von
+$\left[c\right]_{26}=\left[km\right]_{26}$ gibt, womit gezeigt ist, dass die
+Anzahl Schlüssel für jedes Paar konstant 1 ist.
+
+\subsection{}
+
+Wenn die Schlüssel gleichverteilt gewählt werden, ist die Wahrscheinlichkeit pro Schlüsselpaar $(k,l)$
+\begin{align*}
+   P(K=(k,l)) = \frac{1}{12\cdot 26} = \frac{1}{312}
+\end{align*}
+Wir können in die Formel der vorhergehenden Aufgabe einsetzen
+\begin{align*}
+P(M=m \mid C=c) &= \frac{P(M=m)\cdot P(\mathcal{K}_{m,c})}{\sum_{m'\in\mathcal{M}} P(M=m')\cdot P(\mathcal{K}_{m',c})} \\
+            &= \frac{P(M=m)\cdot \frac{1}{312}}{\sum_{m'\in\mathcal{M}}
+P(M=m')\cdot \frac{1}{312}} & \text{Schlüssel nach a) eindeutig}\\
+            &= \frac{P(M=m)\cdot \frac{1}{312}}{\frac{1}{312}\cdot\sum_{m'\in\mathcal{M}} P(M=m')} \\
+            &= \frac{P(M=m)}{\sum_{m'\in\mathcal{M}} P(M=m')} \\
+            &= \frac{P(M=m)}{1} \\
+            &= P(M=m)
+\end{align*}
+\hfill$\Box$ \\
+Das heißt bei einer Gleichverteilung der Schlüssel ist AFFIN tatsächlich perfekt sicher.
+
+\end{document}

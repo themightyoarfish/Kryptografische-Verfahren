@@ -1,0 +1,150 @@
+\documentclass{../crypto}
+\sheet{1}
+\date{22. Oktober 2015}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Rechnen mit Resten}
+
+\subsection{}
+
+  \begin{IEEEeqnarray*}{rCl}
+     [a\cdot b]_n  & \stackrel{?}{=} & [a]_n \odot_n [b]_n \\
+                   & =               & [(n\cdot q + r) \cdot (n\cdot p + s)]_n \\
+                   & =               & [n^2pq + nqs + npr + rs]_n \\
+                   & =               & [n^2pq]_n \oplus_n [nqs]_n \oplus_n [npr]_n \oplus_n [rs]_n \\
+                   & =               & [rs]_n \\
+                   & =               & r \odot_n s \\
+                   & =               & [a]_n \odot_n [b]_n
+  \end{IEEEeqnarray*}
+
+\subsection{}
+
+  \begin{IEEEeqnarray*}{rCl}
+     \left(\left(3126 \oplus_{11} 21783\right) \odot_{11} 213894\right)
+     \oplus_{11} 31942 & = & \left(\left[24909\right]_{11} \odot_{11} 213894\right) \oplus_{11} 31942 \\
+                       & = & \left(5 \odot_{11} 213894\right) \oplus_{11} 31942 \\
+                       & = & \left[1069470\right]_{11} \oplus_{11} 31942 \\
+                       & = & 6 \oplus_{11} 31942 \\
+                       & = & \left[31948\right]_{11} \\
+                       & = & 4
+  \end{IEEEeqnarray*}
+
+\subsection{}
+
+  \begin{IEEEeqnarray*}{rCltt}
+    \left[2131897^8\right]_3   & = & \left[\prod_{i=1}^8 2131897\right]_3\\
+                    & = & \prod_{i=1}^8 \left[2131897\right]_3   & \hspace{1cm} & Aufgabe 1.1.~(a) \\
+                    & = & \prod_{i=1}^8 1             & \hspace{1cm} &
+    \begin{IEEEeqnarraybox}[][c]{s}
+       Es sind $21\cdot x$, $3\cdot x$, $18\cdot x$ \\
+       und $9\cdot x$ durch $3$ teilbar, \\
+       sodass nur $7$ für Rest sorgen kann\\
+    \end{IEEEeqnarraybox} \\
+                   & = & 1
+  \end{IEEEeqnarray*}
+
+
+\section{Die Skytale}
+
+\subsection{}
+
+\lstinputlisting[language=Python]{skytale.py}
+Die Lösung ist: \texttt{PIESKYTALEISTEINTRANSPOSITIONSVERFAHREN}, also in etwa
+\texttt{Die Skytale ist ein Transpositionsverfahren}.
+
+\subsection{}
+
+Für die Berechnung der \texttt{pos} im Java Code muss noch der Parameter $k$
+bekannt sein.
+
+Angenommen der Index in der \texttt{for}-loop soll eigentlich in \texttt{i}
+sein, ergibt sich die Formel:
+
+\begin{align*}
+\text{\texttt{pos}} = \left[i\right]_kw + \left\lfloor\frac{i}{k}\right\rfloor
+\end{align*}
+
+Die Intuition hier ist: Gehe Spalte für Spalte durch das Array, das $0$-te
+Element zuerst, danach das $w$-te, dann das $2w$-te und so weiter. Daraus folgt
+\texttt{pos} $= iw$. Damit nach Erreichen der letzten Zeile wieder die erste
+verwendet wird, muss $i$ alle $k$ Schritte zurückgesetzt werden (nur für die
+Berechnung, nicht als Loopindex), d.h. \texttt{pos} $= \left[i\right]_kw$. So
+würde jedoch immer nur die erste Spalte ausgelesen. Um zusätzlich die Spalte zu
+erhöhen, wenn das Ende erreicht ist, kann $\left\lfloor\frac{i}{k}\right\rfloor$
+addiert werden, was den Spaltenindex für den Loopindex $i$ bei Spalten mit $k$
+Elementen angibt. Es folgt $\texttt{pos} = \left[i\right]_kw +
+\left\lfloor\frac{i}{k}\right\rfloor$.
+
+Vollständig implementiert folgt:
+\lstinputlisting[language=Java,firstline=9,lastline=12 ]{skytale.java}
+\texttt{PIESKYTALEISTEINTRANSPOSITIONSVERFAHREN} wird korrekt ($k=5$) zum Kryptotext aus Aufgabe 1.2.~(a).
+
+\subsection{}
+Es kann passieren, dass die letzte Zeile nicht vollständig oder gar überhaupt
+nicht gefüllt wird. Im Beispiel aus Aufgabe 1.2.~(a) ist dies kein Problem, ein
+Zeichen ist in Ordnung.  Doch wenn in der letzten Zeile mehrere Zeichen fehlen
+(oder gar mehrere Zeichen in der letzten Spalte, z.B. bei $|M|=41, k=8$) dann
+gibt es ein Problem.
+
+Genau dies ist der Fall für $|M|=42, k=8$. Es folgt $w=6$. Tatsächlich ist $|M|$
+ein Vielfaches von $w$: $7w=|M|$. Das bedeutet, es werden nur 7 Zeilen gefüllt,
+die unterste Zeile bleibt leer.
+
+Das würde in der Praxis bedeuten, dass das Band mit Leerzeichen aufgefüllt wird
+(unter Umständen mit Ausnahme des letzten Zeichens). Natürlich könnte auch ein
+beliebiges anderes Zeichen gewählt werden, nennen wir dieses Zeichen $x$. Nun
+kann ein Angreifer versuchen durch geschickes anordnen gleicher Buchstaben
+nebeneinander ohne den Schlüssel zu kennen die Nachricht zu entschlüsseln.
+
+Um dieses Problem zu umgehen gibt es zwei einfache Möglichkeiten:
+
+\begin{enumerate}
+  \item Klartext-Schlüssel-Kombinationen wählen, die möglichst gut $|M|=kw$ annähern.
+  \item Den Klartext mit zufälligen Zeichen auffüllen, bis $|M|=kw$ annähernd gilt.
+\end{enumerate}
+
+Ein weiteres nicht mit der Skytale lösbares Problem ist, dass der Angreifer
+durch Faktorisierungen der Zahlen $|M| \pm 1$ bereits seinen Raum an
+Entschlüsselungsmöglichkeiten stark eingrenzen kann.
+
+
+\section{Cäsar$^2$}
+
+\subsection{}
+
+\begin{itemize}
+   \item Die Schlüsselpaare $(k_1,k_2)$ und $(k_2,k_1)$ führen zur selben
+      Codierung, sodass die Schlüsselmenge effektiv wieder halbiert wird, da man
+      nur eine von je zwei Möglichkeiten testen muss
+   \item Es gilt
+      \begin{IEEEeqnarray*}{rCl}
+         E_{k_1,k_2}(M) & = & E_{k_2}(E_{k_1}(M)) \\
+                        & = & [[M + k_1] + k_2]_{26} \\
+                        & = & [M + k_1]_{26} \oplus_{26} [k_2]_{26} \\
+                        & = & [M + k_1]_{26} \oplus_{26} k_2 \\
+                        & = & [M]_{26} \oplus [k_1]_{26} \oplus_{26} k_2 \\
+                        & = & [M]_{26} \oplus k_1 \oplus_{26} k_2 \\
+                        & = & [M + (k_1 + k_2)]_{26}
+      \end{IEEEeqnarray*}
+
+      Somit stellt sich das selbe Problem wie bei der normalen
+      Cäsar-Verschlüsselung. Sobald ein Klartextzeichen und das zugehörige
+      Kryptozeichen bekannt sind, kann die Summe $(k_1 + k_2)$ berechnet werden.
+      Zwar kennt man die Einzelschlüssel nicht, kann mit deren Summe aber
+      dennoch alle Texte entschlüsseln.
+\end{itemize}
+
+\subsection{}
+
+Ein Gegenbeispiel für $k=2$ ist $E_2(13) = [2\cdot 13]_{26} = 0 = E_2(0)$. Ein
+Gegenbeispiel für $k=13$ ist $E_{13}(2) = [13\cdot 2]_{26} = 0 = E_{13}(0)$.
+Generell tritt das Problem dann auf, wenn der Schlüssel die
+Klartextalphabetgröße ganzzahlig teilt, bzw. Schlüssel und Alphabetgröße nicht
+teilerfremd sind. Dies ist hier nur für $k=2$ und $k=13$
+der Fall. Aus diesem Grund sollte man als Alphabetgröße eine Primzahl wählen.
+
+\end{document}

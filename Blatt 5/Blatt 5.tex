@@ -1,0 +1,152 @@
+\documentclass{../crypto}
+\sheet{5}
+\date{4. Dezember 2015}
+
+\usepackage{amssymb} 
+
+\begin{document}
+
+\maketitle
+
+\section{Der Geburtstagsangriff mit konstantem Speicher terminiert}
+
+Es sei mit $P(n,k)$ die Wahrscheinlichkeit bezeichnet, bei $n$ Versuchen ($n$
+verschiedenen Eingaben) bei einer Hashlänge von $2^k$ Bits keine Kollision zu
+erhalten.
+
+\begin{align*}
+   P(n,k)  & = 1 \cdot \frac{2^k - 1}{2^k} \cdot \ldots \cdot \frac{2^k - n + 1}{2^k} \\
+   P(n,k)  & =   \prod_{i=0}^{n-1} \frac{2^k - i}{2^k}                                \\
+           & =   \prod_{i=1}^{n-1} (1 -  \frac{i}{2^k})                               \\
+\intertext{Da $(1-x)$ durch $e^{-x}$ nach oben abgeschätzt werden kann, gilt}
+           & \le \prod_{i=1}^{n-1} e^{-\frac{i}{2^k}} \\
+           & =   e^{\sum_{i=1}^{n-1}-\frac{i}{2^k}}   \\
+           & =   e^{-\frac{1}{2^k}\sum_{i=1}^{n-1}i}  \\
+           & =   e^{-\frac{1}{2^k} \frac{n(n-1)}{2}}  \\
+           & \le   e^{-\frac{(n-1)^2}{2\cdot 2^k}}    \\
+\end{align*}
+Gesucht ist nun $n$, sodass $P(n,128) \le \frac{1}{4}$.
+\begin{align*}
+   e^{-\frac{(n-1)^2}{2\cdot 2^k}} & \le \frac{1}{4}                        \\
+   -\frac{(n-1)^2}{2\cdot 2^k}     & \le \ln{\frac{1}{4}}                   \\
+   -(n-1)^2                        & \le 2\cdot 2^k \cdot \ln{\frac{1}{4}}  \\
+   -n^2 + 2n - 1                   & \le 2\cdot 2^k \cdot \ln{\frac{1}{4}}  \\
+   n^2 - 2n + 1                    & \ge -2\cdot 2^k \cdot \ln{\frac{1}{4}} \\
+   \intertext{Mit den üblichen Verfahren, z.B. $pq$-Formel und
+   Computerunterstützung lässt dies als positive Lösung zu}
+   n_{128}                         & \gtrapprox 30.715.843.678.825.642.450 \approx 3.0716 \cdot 10^{19}
+\end{align*}
+
+Man müsste also mehr also über dreißig Trillionen
+Versuche machen. Analog gelangt man für $k=160$ zu dem Ergebnis 
+
+\begin{equation*}
+   n_{160} \gtrapprox 2.012.993.531.335.517.303.552.701 \approx 2.013 \cdot 10^{24}
+\end{equation*}
+oder etwa $2$ Quadrillionen Versuche.
+
+\section{Der Geburtstagsangriff mit konstantem Speicher findet Kollisionen}
+
+Falls es $1 \le I < J$ mit $x_I = x_J$ und damit $H(x_{I-1}) = H(x_{J-1})$
+gibt, so hat die Folge $x_1,\ldots,x_q$ offenbar eine Periode von $J - I$. Der
+$(J+i)$-te Wert ist also gleich dem $(I+i)$-ten. 
+
+In einer Folge der Periode $J-I$ gibt es zwischen (inklusive) den ersten
+gleichen Elementen eine Zahl, deren Index ein Vielfaches der Periode ist. Dies
+ist an Beispielen leicht zu sehen und zur Not beweisbar, indem man ein Fenster
+der Länge $J-I$ über $\mathbb{N}$ wandern lässt. Also
+gilt, es existiert ein $x_{l(J-I)} = x_{l(J-I) + (J-I)} = x_{l(J-I) + 2(J-I)} =
+\ldots = x_{l(J-I) + l(J-I)} = x_{2l(J-I)}$, wobei $l(J-I) < J$ ist.
+
+\section{Schlüsseltauschprotokolle}
+\subsection{}
+
+Der Breitmaulfrosch ist nicht einmal gegen Angriffe ohne bekannten Schlüssel
+sicher, wenn es keinen Zeitstempel gibt. Fängt der Angreifer eine Nachricht ab,
+deren Inhalt er kennt (hierfür könnte er den bekannten Schlüssel vielleicht
+verwenden), so könnte er diese erneut senden und erneut eine Reaktion auslösen
+(z.B. eine Überweisung o.Ä.). 
+
+Ein Problem ist auch, dass vor allem ohne Zeitstempel (aber potenziell auch mit,
+wenn der Angriff innerhalb eines Zeitfensters durchgeführt wird, das nicht
+verdächtig ist) ein Angreifer die Validität eines Schlüssels erhalten kann,
+indem er abwechseln Alice und Bob vertritt und die Nachricht
+$E_{K_{BC}}(t_Z, A, K_{AB})$ an Charlie sendet, die dieser zuvor an Bob
+geschickt hatte. Charlie sendet dann $E_{K_{AC}}(t_Z^\prime, B, K_{AB})$ an
+Alice und der Schlüssel $K_{AB}$ bleibt aktiv. Sendet man die Nachricht immer
+schnell genug zurück an Charlie, kann der Schlüssel so am Leben erhalten werden.
+
+% Lässt man den Zeitstempel beim Breitmaulfroschprotokoll weg, kann ein Angreifer
+% durch Abfangen der Nachrichten um Charlie mit zwei verschiedenen Kryptoptexten
+% und einem (mindestens) teilweise bekannten Klartext die Kommunikation abhören.
+
+\subsection{}
+
+Das Needham-Schroeder-Protokoll ist \textbf{nicht} sicher gegen Angriffe mit
+bekanntem Sitzungsschlüssel mit Zusatzinformation. Angenommen, Everett kennt einen alten
+Sitzungsschlüssel $k_{AB}$ und hat die dritte Nachricht $E_{k_{SB}}(A,k_{AB})$
+(also die Nachricht, in der Charlie ein für Bob bestimmtes Chiffrat an Alice
+sendet) aufgezeichnet. Er kann nun die Nachricht erneut an Bob senden, welcher
+mit seiner verschlüsselten Zufallszahl $E_{k_{AB}}(r_B)$ antwortet. Diese kann
+Everett entschlüsseln, ändern, verschlüsseln und wieder an Bob schicken, sodass
+dieser dann denkt, er würde mit Alice kommunizieren.
+
+Ist allerdings \textbf{nur} der Sitzungsschlüssel bekannt, kann ein Angreifer
+damit nichts anfangen, denn die Nonce $r_A$ garantiert Alice dass der erhaltene
+Schlüssel aktuell ist und die Schlüssel werden von Charlie unabhängig generiert.
+
+Bei Otway-Rees existiert das Problem mit der fehlenden Authentizität nicht
+(s.o.). Bob kann also nicht so einfach über die Identität seines
+Kommunikationspartners getäuscht werden. Auch hier generiert Charlie unabhängig
+die Sitzungsschlüssel $k_{AB}$ und Alice und Bob werden durch die Noncen $r_A$
+und $r_B$ von der Aktualität überzeugt.
+
+% Das Otway-Rees-Protokoll sicher gegen Angriffe
+% mit bekannten Sitzungsschlüsseln, weil Charlie diesen immer neu generiert. Wir
+% hoffen, dass Charlie ein Verfahren verwendet, dass es nicht zulässt von alten
+% Schlüsseln auf neue Schlüssel zu schließen -- z.B.  unter Verwendung von
+% Timestamps. Sind diese Timestamps nicht vorhanden, sind Replay-Attacken jedoch
+% weiterhin möglich.
+
+% Das Diffie-Hellman-Protokoll ist sicher gegen Angriffe mit bekannten 
+% Sitzungsschlüsseln, weil für jeder Sitzung sehr trivial neue Schlüssel erzeugt
+% werden können, denn es müssen nur Zufallszahlen $a$ und $b$ von Alice und Bob
+% generiert sowie zwei Nachrichten ausgetauscht werden
+
+Für den Diffie-Hellman-Schlüsseltausch werden in jeder Sitzung die Exponenten
+$a$ und $b$ neu zufällig generiert. Wenn ein Angreifer einen Schlüssel $(g^a \mod
+p)^b \mod p$ kennt, kann er nicht einfach $a$ oder $b$ berechnen oder auch bloß
+$(g^a \mod p)$. Mit der letzen Information könnte er eine MITM-Attacke
+durchführen, kennt er aber nur den alten Schlüssel, geht dies nicht.
+
+\subsection{}
+
+Da Alice $A$ und den Sitzungsschlüssel aus $E_{kA}(r_A,k_{AB},B,E_{kB(A,k_{AB})})$
+weiß, kann sie aus $E_{kB}(A,k_{AB})$, $A$ und $k_{AB}$ auf $k_B$ schließen, je
+nach Verschlüsselungsverfahren (z.B. Rainbow Tables). Der
+Angriff funktioniert auch, wenn das Protokoll um einen Timestamp erweitert wird.
+
+\section{Ein sicheres Protokoll?}
+\subsection{}
+\begin{align*}
+	w \oplus t & = u \oplus r \oplus t                   \\
+	           & = s \oplus t \oplus r \oplus t          \\
+	           & = k \oplus r \oplus t \oplus r \oplus t \\
+	           & = k \oplus r \oplus r \oplus t \oplus t \\
+	           & = k \oplus 0 \oplus 0                   \\
+	           & = k
+\end{align*}
+
+\subsection{}
+\begin{enumerate}
+    \item Erste Nachricht von Alice abfangen $\rightarrow s := k \oplus r$
+    \item Erste Nachricht von Bob abfangen $\rightarrow u := s \oplus t$
+    \item Zweite Nachricht von Alice abfangen $\rightarrow w := u \oplus r$
+    \item Berechnen: 
+        \begin{align*}
+           r & = w \oplus u \quad \left(u \oplus r \oplus u\right)\\
+           k & = s \oplus r \quad \left(k \oplus r \oplus r\right)
+        \end{align*}
+\end{enumerate}
+Damit hat der Angreifer den Schlüssel, der von Alice und Bob verwendet wird.
+\end{document}

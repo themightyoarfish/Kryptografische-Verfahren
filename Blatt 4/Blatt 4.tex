@@ -1,0 +1,168 @@
+\documentclass{../crypto}
+\sheet{4}
+\date{27. November 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Zufallsgeneratoren}
+
+Meines Erachtens macht es keinen Sinn, nach einem generellen Beweis zu fragen,
+dass $L$ und $H$ keine PZG sind. Eher sollte es darum gehen, dass sie nicht
+\emph{notwendigerweise} PZG sind, wenn $G$ und $G^\prime$ PZG sind, denn dies
+könnte von der Wahl von $G$ und $G^\prime$ abhängen. Diese
+Interpretation der Aufgabe wird hier angenommen (so wie z.B. Aufgabe 3.6 aus
+Katz \& Lindell).
+
+Sei $G$ ein PZG mit $|G(s)| > 4|s| = 4n$. Definiere $G^\prime \coloneqq
+G(s_1,\ldots,s_{\floor{ \frac{n}{2} }})$.  Nach Voraussetzungen ist
+$G^\prime$ PZG, denn $|G(s)| > 2n$. 
+
+\subsection{}
+
+Da $|G^\prime| > 2n$, gilt 
+\begin{equation*}
+   H(s) = G^\prime(0^{|s|} ~||~ s) = G(0^{|s|})
+\end{equation*}
+Also berechnet $H$ für alle $s$ der Länge $n$ den selben Wert und ist damit leicht von echtem
+Zufall unterscheidbar. Ein Distinguisher $\mcal{D}$ muss nur für gegebenes $|s|$
+(die Länge des Seeds dürfte bekannt sein, oder er probiert alle $n$ Längen
+durch, was polynomiell in $n$ wäre)
+den Wert $G(0^{|s|})$ berechnen und prüfen, ob $H(s) = G(0^{|s|})$. Daher ist
+$P(\mcal{D}(G(s)) = 1) = 1$, während die Situation, dass ein zufälliger
+Bistring $r$ gerade $r=G(0^{|s|})$ ist, nur eine von $2^{|s|}$ Möglichkeiten
+ist, $r$ zu wählen, mithin $P(\mcal{D}(r) = 1) = \frac{1}{2^{|s|}}$. Die
+Wahrscheinlichkeiten unterscheiden sich also nicht-vernachlässigbar.
+
+\subsection{}
+
+% Not sure if this suffices; Maybe one could use ideas from
+% https://crypto.stackexchange.com/questions/30698/given-prng-gs-why-is-gs-gs1-not-a-prng,
+% but the guy/girl makes an assumption about some construction being a PRNG
+
+% B-B-B-B-Bullshiiiiiiet!
+% Ein Distinguisher $\mcal{D}$ berechnet $L(s)$ und $L(s+1)$ und gibt $1$ aus,
+% sofern die ersten $\frac{l(n)}{2}$ Bits von $L(s+1)$  übereinstimmen mit den
+% letzten $\frac{l(n)}{2}$ Bits von $L(s)$. Ein von $L$ generierter String wird
+% also mit Wahrscheinlichkeit $1$ als solcher erkannt. Hingegen ist die
+% Wahrscheinlichkeit, dass bei echt zufälligem $G(s+1)$ die erste Hälfte gleich der
+% zweiten von $G(s)$ ist $\frac{1}{2^{\frac{l(n)}{2}}}\cdot \frac{1}{2^{\frac{l(n)}{2}}} =
+% \frac{1}{2^{\frac{l(n)}{2}}}$. Die Wahrscheinlichkeiten unterscheiden sich
+% nicht-vernachlässigbar.
+
+Da $|G^\prime| > 2n$, nehmen wir an 
+\begin{align*}
+   L(s) & = G^\prime(s) ~||~ G^\prime(s+1)  \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G^\prime(s+1) \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G(s^\prime) \\
+        & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G(s^\prime_1,\ldots,s^\prime_{\floor{\frac{n}{2}}}) \\
+\end{align*}
+
+Sei $D(K)$ ein Distinguisher mit 
+\begin{equation*}
+   D(K) = 
+   \begin{cases}
+      1, \text{falls $k_1,\ldots,k_{\frac{n}{2}} = k_{\frac{n}{2} + 1},\ldots,k_n$} \\
+      0\ \text{sonst}
+   \end{cases}
+\end{equation*}
+
+$|K|$ muss für Strings, die durch $L$ generiert wurden, gerade sein, da es
+eine Konkatenation zweier gleich langer Strings ist. Strings ungerader Länge
+können sofort als echt zufällig identifiziert werden und sind daher
+uninteressant.
+
+Addiert man $1$ zu $s$, so ist die Wahrscheinlichkeit, dass sich ein Bit in der
+vorderen Hälfte ändert die Wahrscheinlichkeit, dass alle Bits der unteren Hälfte
+$1$ sind. Damit $D$ $0$ zurück gibt auf einem von $L$ generierten String, muss
+genau der Fall eintreten, da die untere Hälfte jeweils abgeschnitten und
+ignoriert wurde.
+\begin{equation*}
+   P(\text{Bit $i$ geflippt mit $i>\frac{n}{2}$}) = \frac{1}{2^{\frac{n}{2}}},
+\end{equation*}
+denn die unteren $\frac{n}{2}$ Bits müssen $1$ sein.
+Daher ist 
+\begin{equation*}
+   P(D(G(s)) = 1) = 1 - P(D(G(s)) = 0) = 1 - \frac{1}{2^\frac{n}{2}}
+\end{equation*}
+
+Die Wahrscheinlichkeit, dass bei einem gleichverteilten Bitstring $r$ die obere
+und untere Hälfte übereinstimmen (was zu einer Fehleinschätzung von $D(r)$
+führen würde), lässt sich als Quotient der Anzahl von Strings, deren Hälften
+gleich sind und der Anzahl aller Strings berechnen. Für eine Hälfte gibt es
+$2^{\frac{n}{2}}$ Möglichkeiten und daher genauso viele Strings mit gleichen
+Hälften, gegenüber $2^n$ Strings insgesamt.
+\begin{equation*}
+   P(D(r) = 1) = \frac{2^{\frac{n}{2}}}{2^n} = 2^{-\frac{n}{2}} = \frac{1}{2^\frac{n}{2}}
+\end{equation*}
+
+Es gilt also 
+\begin{equation*}
+   \left\lvert P(D(G(s)) = 1) - P(D(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
+   \frac{1}{2^\frac{n}{2}}\right\rvert = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
+   \frac{1}{2^{\frac{n}{2} - 1}}
+\end{equation*}
+
+Dies ist nicht vernachlässigbar und wird insbesondere größer für wachsendes $n$.
+$L$ ist also nicht notwendigerweise ein PZG.
+
+\section{Beweis des Satzes von Goldbach-Levin (erster Teil)}
+
+Unter der Annahme, dass $g$ keine Einwegfunktion ist---also einen nicht
+vernachlässigbar häufig erfolgreichen Angreifer $\mcal{A}^\prime$
+besitzt---können wir einen Angreifer $\mcal{A}$ auf die eigentliche
+Einwegfunktion $f$ konstruieren. $\mcal{A}$ agiert als Orakel für
+$\mcal{A}^\prime$ und sendet seine erhaltene Eingabe $y$ weiter an
+$\mcal{A}^\prime$, nachdem es ein beliebiges $x_2$ mit $|x_2| = |y|$ gewählt
+hat. $\mcal{A}^\prime$ antwortet mit einer Lösung $(x_1^\prime,x_2)$ für das
+Tupel. $\mcal{A}$ kann nun $x_1^\prime$  weiterleiten an $f$. 
+
+\begin{center}
+   \begin{tikzpicture}[node distance=4cm]
+      \node[box,fill=black,text=white] (A') {$\mcal{A}^\prime$ auf $g$};
+      \node[box,right=of A'] (A) {$\mcal{A}$ auf $f$};
+      \node[box,right=of A] (f) {$f(x)$};
+
+      \draw[thick,>=latex,<-] (A'.30)     -- node[above] {$(x_1=y,x_2)$} (A.150);
+      \draw[thick,>=latex,<-] (A.30)    -- node[above] {$y=f(x)$} (f.150);
+      \draw[thick,>=latex,<-] (f.210) -- node[below] {$x_1^\prime$} (A.-30);
+      \draw[thick,>=latex,<-] (A.210)   -- node[below] {$(x_1^\prime,x_2)$} (A'.-30);
+   \end{tikzpicture}
+\end{center}
+
+Offensichtlich ist $\mcal{A}$ genau dann
+erfolgreich, wenn $\mcal{A}^\prime$ erfolgreich ist. Dies ist ein Widerspruch
+zur Annahme, dass $f$ eine Einwegfunktion ist.
+
+\hfill{}$\Box$
+
+% Put up your damn slides, man.
+
+\section{Einwegfunktionen?}
+
+Angenommen, $g$ wäre keine Einwegfunktion und man könnte $g^{-1}$ effizient
+berechnen. Dann gälte 
+\begin{align*}
+   g^{-1}(g(x)) &= x \\
+   g^{-1}(f(f(x))) &= x \\
+   g^{-1}(y) &= f^{-1}(f^{-1}(y)) \\
+   \intertext{
+      $g^{-1}$ revidiert also zwei Anwendungen von $f$. Dann ist aber auch
+      für $y=f(x)$
+   }
+   g^{-1}(f(y)) &= f^{-1}(f^{-1}(f(y))) \\
+                &= f^{-1}(y)
+\end{align*}
+Und die Umkehrfunktion $f^{-1}(y)$ ist effizient als $g^{-1}(f(y))$ berechenbar,
+was ein Widerspruch ist, denn $f$ ist Einwegfunktion. $g$ ist also eine
+Einwegfunktion.
+
+Ich vermute, dass $g^\prime$ ebenfalls eine Einwegfunkion ist. Gegeben ein $y$
+könnte man die Konkatenationsstelle zwar leicht bestimmen durch sukzessive
+Anwendung von $f$ auf immer längere Teilstrings und das Problem so in zwei Teile
+brechen, jedoch müsste man dann $f(x)$ und $f(f(x)) = g(x)$ invertieren. Wir
+wissen, dass wir $g^{-1}$ allein nicht effizient bestimmen können. Möglicherweise ist
+es hilfreich, für ein $f(f(x))$ das Urbild zu kennen (da es am Anfang steht),
+aber ich sehe keinen Weg, dies zur Berechnung von $x$ zu nutzen.
+\end{document}

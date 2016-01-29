@@ -84,7 +84,7 @@ ignoriert wurde.
 denn die unteren $\frac{n}{2}$ Bits müssen $1$ sein.
 Daher ist 
 \begin{equation*}
-   P(D(G(s)) = 1) - P(D(G(s)) = 0) = 1 - \frac{1}{2^\frac{n}{2}}
+   P(D(L(s)) = 1) = 1 - \frac{1}{2^\frac{n}{2}}
 \end{equation*}
 
 Die Wahrscheinlichkeit, dass bei einem gleichverteilten Bitstring $r$ die obere
@@ -99,7 +99,7 @@ Hälften, gegenüber $2^n$ Strings insgesamt.
 
 Es gilt also 
 \begin{equation*}
-   \left\lvert P(D(G(s)) = 1) - P(D(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
+   \left\lvert P(D(L(s)) = 1) - P(D(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
    \frac{1}{2^\frac{n}{2}}\right\rvert = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
    \frac{1}{2^{\frac{n}{2} - 1}}
 \end{equation*}

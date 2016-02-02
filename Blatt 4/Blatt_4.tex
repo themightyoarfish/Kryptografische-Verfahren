@@ -37,20 +37,6 @@ Wahrscheinlichkeiten unterscheiden sich also nicht-vernachlässigbar.
 
 \subsection{}
 
-% Not sure if this suffices; Maybe one could use ideas from
-% https://crypto.stackexchange.com/questions/30698/given-prng-gs-why-is-gs-gs1-not-a-prng,
-% but the guy/girl makes an assumption about some construction being a PRNG
-
-% B-B-B-B-Bullshiiiiiiet!
-% Ein Distinguisher $\mcal{D}$ berechnet $L(s)$ und $L(s+1)$ und gibt $1$ aus,
-% sofern die ersten $\frac{l(n)}{2}$ Bits von $L(s+1)$  übereinstimmen mit den
-% letzten $\frac{l(n)}{2}$ Bits von $L(s)$. Ein von $L$ generierter String wird
-% also mit Wahrscheinlichkeit $1$ als solcher erkannt. Hingegen ist die
-% Wahrscheinlichkeit, dass bei echt zufälligem $G(s+1)$ die erste Hälfte gleich der
-% zweiten von $G(s)$ ist $\frac{1}{2^{\frac{l(n)}{2}}}\cdot \frac{1}{2^{\frac{l(n)}{2}}} =
-% \frac{1}{2^{\frac{l(n)}{2}}}$. Die Wahrscheinlichkeiten unterscheiden sich
-% nicht-vernachlässigbar.
-
 Da $|G^\prime| > 2n$, nehmen wir an 
 \begin{align*}
    L(s) & = G^\prime(s) ~||~ G^\prime(s+1)  \\
@@ -59,9 +45,9 @@ Da $|G^\prime| > 2n$, nehmen wir an
         & = G(s_1,\ldots,s_{\floor{\frac{n}{2}}}) ~||~ G(s^\prime_1,\ldots,s^\prime_{\floor{\frac{n}{2}}}) \\
 \end{align*}
 
-Sei $D(K)$ ein Distinguisher mit 
+Sei $\mathcal{D}(K)$ ein Distinguisher mit 
 \begin{equation*}
-   D(K) = 
+   \mathcal{D}(K) = 
    \begin{cases}
       1, \text{falls $k_1,\ldots,k_{\frac{n}{2}} = k_{\frac{n}{2} + 1},\ldots,k_n$} \\
       0\ \text{sonst}
@@ -79,27 +65,27 @@ $1$ sind. Damit $D$ $0$ zurück gibt auf einem von $L$ generierten String, muss
 genau der Fall eintreten, da die untere Hälfte jeweils abgeschnitten und
 ignoriert wurde.
 \begin{equation*}
-   P(\text{Bit $i$ geflippt mit $i>\frac{n}{2}$}) = \frac{1}{2^{\frac{n}{2}}},
+   P(\mathcal{D}(L(s)) = 0) = P(\text{Bit $i$ geflippt mit $i>\frac{n}{2}$}) = \frac{1}{2^{\frac{n}{2}}},
 \end{equation*}
 denn die unteren $\frac{n}{2}$ Bits müssen $1$ sein.
 Daher ist 
 \begin{equation*}
-   P(D(L(s)) = 1) = 1 - \frac{1}{2^\frac{n}{2}}
+   P(\mathcal{D}(L(s)) = 1) = 1 - \frac{1}{2^\frac{n}{2}}
 \end{equation*}
 
 Die Wahrscheinlichkeit, dass bei einem gleichverteilten Bitstring $r$ die obere
-und untere Hälfte übereinstimmen (was zu einer Fehleinschätzung von $D(r)$
+und untere Hälfte übereinstimmen (was zu einer Fehleinschätzung von $\mathcal{D}(r)$
 führen würde), lässt sich als Quotient der Anzahl von Strings, deren Hälften
 gleich sind und der Anzahl aller Strings berechnen. Für eine Hälfte gibt es
 $2^{\frac{n}{2}}$ Möglichkeiten und daher genauso viele Strings mit gleichen
 Hälften, gegenüber $2^n$ Strings insgesamt.
 \begin{equation*}
-   P(D(r) = 1) = \frac{2^{\frac{n}{2}}}{2^n} = 2^{-\frac{n}{2}} = \frac{1}{2^\frac{n}{2}}
+   P(\mathcal{D}(r) = 1) = \frac{2^{\frac{n}{2}}}{2^n} = 2^{-\frac{n}{2}} = \frac{1}{2^\frac{n}{2}}
 \end{equation*}
 
 Es gilt also 
 \begin{equation*}
-   \left\lvert P(D(L(s)) = 1) - P(D(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
+   \left\lvert P(\mathcal{D}(L(s)) = 1) - P(\mathcal{D}(r) = 1) \right\rvert = \left\lvert1 - \frac{1}{2^\frac{n}{2}} -
    \frac{1}{2^\frac{n}{2}}\right\rvert = 1 - \frac{2}{2^{\frac{n}{2}}} = 1 -
    \frac{1}{2^{\frac{n}{2} - 1}}
 \end{equation*}

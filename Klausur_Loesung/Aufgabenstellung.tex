@@ -1,0 +1,59 @@
+\documentclass{../crypto_2}
+\usepackage{amsthm} 
+\usepackage{mathtools}
+\sheet{}
+\date{03. Februar 2016}
+
+\newtheorem{theorem}{Theorem}
+\usepackage{amssymb}
+
+\usepackage[upright]{fourier}%withot fourier  symb = $\altersquare$
+\usepackage{alterqcm}
+
+\parindent0pt
+\begin{document}
+\maketitle
+
+Erlaubte Hilfsmittel sind: Taschenrechner, Cäsarscheibe, Vigenère Tabelle
+
+\section*{Aufgabe 1 --- 5 Punkte}
+Pro richtiger Antwort gibt es einen Punkt, falsche Antworten geben Abzug, die minimal u erreichende Punktzahl ist 0 Punkte
+\medskip \\
+\begin{alterqcm}[lq=13cm,language=german] 
+ \AQquestion{In jedem perfekt sicheren Kryptosystem gibt es echt weniger Klartexte als Schlüssel }{% 
+ {falsch},
+ {wahr}}  
+\AQquestion{Ein Public Key Kryptosystem ist genau dann polynomiell CPA sicher, wenn es polynomiell sicher gegen einen passiven Angreifer ist}{% 
+ {falsch},
+ {wahr}}
+  \AQquestion{Nachrichten sollte man erst veschlüsseln und dann authentifizieren}{% 
+ {falsch},
+ {wahr}} 
+   \AQquestion{Für Signatur und Verschlüsselung sollte der identische Schlüssel verwendet werden}{% 
+ {falsch},
+ {wahr}} 
+   \AQquestion{$\Phi(375)$ ist $210$ }{% 
+ {falsch},
+ {wahr}} 
+\end{alterqcm}
+
+\section*{Aufgabe 2 --- 5 Punkte}
+Entschlüssele den Kryptotext NFNYSNKCLZRVOA, welcher mit dem Vigenère Verfahren und dem Schlüssel DRWHO verschlüsselt wurde.
+
+\section*{Aufgabe 3 --- 3 + 4 Punkte}
+Berechne ohne technische Hilfsmittel und dokumentiere jeden Schritt gut\begin{itemize}
+\item größter gemeinsamer Teiler von $1528$ und $4052$
+\item $46^{113}$ mod $55$
+\end{itemize}
+\section*{Aufgabe 4 --- 5 Punkte}
+Wenn beim One Time Pad der Schlüssel $K=0^n$ ist, dann ist $Enc_k(m) = m$. Daher wird oft vorgeschlagen, nur Schlüssel $K\neq 0^n$ zu benutzen, also gleichmäßig aus allen anderen Schlüsseln zu wählen. Ist dieses modifizierte One Time Pad noch perfekt sicher? 
+\section*{Aufgabe 5 --- 5 Punkte}
+Eine Hashfunktion $(Gen,H)$ sei kollisionsresistent und längenerhaltend, dh $|x| = |H^s (x)|$ für alle Schlüssel $s$ und Eingabe $x$. Zeigen Sie, dass dann auch $(Gen,\hat{H})$ mit $\hat{H}^s (x):=H^s(H^s(x))$ kollisionsresistent ist. 
+\section*{Aufgabe 6 --- 4 + 5 Punkte}
+Sei $\sqcap = (Gen, Enc, Dec)$ CPA sicher und $\sqcap' = (Gen, Enc', Dec')$ mit $Enc'_k(m) = (r,Enc_k(Enc_r(m)))$ mit $r=Gen(1^n)$ und $Dec'_k(c)= Dec_r(Dec_k(c))$ 
+\begin{itemize}
+\item Beschreiben Sie ein Zufallsexperiment um ein Kryptosystem auf CPA Sicherheit zu 	   überprüfen. Definieren Sie, wann ein Kryptosystem CPA sicher ist.
+\item Zeigen Sie, dass $\sqcap'$ CPA sicher ist.
+\end{itemize}
+
+\end{document}
